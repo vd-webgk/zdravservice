@@ -2,18 +2,18 @@
 <?global $arTheme, $isShowCatalogSections;?>
 <?if($isShowCatalogSections):?>
 	<?$APPLICATION->IncludeComponent(
-	"aspro:catalog.section.list.next",
-	"front_sections_theme",
+	"aspro:catalog.section.list.next", 
+	"front_sections_theme", 
 	array(
-		"IBLOCK_TYPE" => "aspro_next_catalog",
-		"IBLOCK_ID" => "20",
+		"IBLOCK_TYPE" => "catalog_1c",
+		"IBLOCK_ID" => "26",
 		"CACHE_TYPE" => "A",
 		"CACHE_TIME" => "36000000",
 		"CACHE_FILTER" => "Y",
 		"CACHE_GROUPS" => "N",
 		"COUNT_ELEMENTS" => "N",
 		"FILTER_NAME" => "arrPopularSections",
-		"TOP_DEPTH" => "",
+		"TOP_DEPTH" => "1",
 		"SECTION_URL" => "",
 		"VIEW_MODE" => "",
 		"SHOW_PARENT_NAME" => "N",
