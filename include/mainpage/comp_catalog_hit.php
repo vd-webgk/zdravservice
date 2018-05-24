@@ -3,8 +3,8 @@
 	"aspro:tabs.next", 
 	"main", 
 	array(
-		"IBLOCK_TYPE" => "aspro_next_catalog",
-		"IBLOCK_ID" => "20",
+		"IBLOCK_TYPE" => "catalog_1c",
+		"IBLOCK_ID" => "26",
 		"SECTION_ID" => "",
 		"SECTION_CODE" => "",
 		"TABS_CODE" => "HIT",
@@ -12,7 +12,7 @@
 			0 => "",
 			1 => "",
 		),
-		"ELEMENT_SORT_FIELD" => "sort",
+		"ELEMENT_SORT_FIELD" => "RAND",
 		"ELEMENT_SORT_ORDER" => "asc",
 		"ELEMENT_SORT_FIELD2" => "id",
 		"ELEMENT_SORT_ORDER2" => "desc",
@@ -52,7 +52,6 @@
 		"SET_STATUS_404" => "N",
 		"PRICE_CODE" => array(
 			0 => "BASE",
-			1 => "OPT",
 		),
 		"USE_PRICE_COUNT" => "Y",
 		"SHOW_PRICE_COUNT" => "1",
@@ -83,7 +82,7 @@
 			0 => "",
 			1 => "",
 		),
-		"OFFERS_SORT_FIELD" => "sort",
+		"OFFERS_SORT_FIELD" => "RAND",
 		"OFFERS_SORT_ORDER" => "asc",
 		"OFFERS_SORT_FIELD2" => "id",
 		"OFFERS_SORT_ORDER2" => "desc",
@@ -100,7 +99,8 @@
 			0 => "2",
 			1 => "",
 		),
-		"STIKERS_PROP" => "HIT"
+		"STIKERS_PROP" => "HIT",
+		"SHOW_MEASURE_WITH_RATIO" => "N"
 	),
 	false
 );?>
