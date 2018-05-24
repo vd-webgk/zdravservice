@@ -4,12 +4,13 @@
 	// get actual basket counters from session
 	$arCounters = CNext::getBasketCounters();
 	// and show fly counters in static content
+
 	global $arBasketPrices;?>
 	<div class="basket_fly">
 		<div class="wrap_cont">
 			<div class="opener">
 				<div title="<?=$arBasketPrices['BASKET_SUMM_TITLE']?>" data-type="AnDelCanBuy" class="basket_count small clicked empty">
-					<a href="<?=(is_array($arCounters['READY']['HREF']) ? $arCounters['READY']['HREF']['VALUE'] : $arCounters['READY']['HREF']);?>"></a>
+					<a href="<?=$arCounters['READY']['HREF']?>"></a>
 					<div class="wraps_icon_block basket">
 						<div class="count <?=($arCounters['READY']['COUNT'] ? '' : 'empty_items');?>">
 							<span>
@@ -21,7 +22,7 @@
 					</div>
 				</div>
 				<div title="<?=$arBasketPrices['DELAY_SUMM_TITLE']?>" data-type="DelDelCanBuy" class="wish_count small clicked empty">
-					<a href="<?=(is_array($arCounters['DELAY']['HREF']) ? $arCounters['DELAY']['HREF']['VALUE']."#delayed" : $arCounters['DELAY']['HREF']);?>"></a>
+					<a href="<?=$arCounters['DELAY']['HREF']?>"></a>
 					<div class="wraps_icon_block delay">
 						<div class="count <?=($arCounters['DELAY']['COUNT'] ? '' : 'empty_items');?>">
 							<span>
@@ -33,7 +34,7 @@
 					</div>
 				</div>
 				<div title="<?=$arCounters['COMPARE']['TITLE']?>" class="compare_count small">
-					<a href="<?=(is_array($arCounters['COMPARE']['HREF']) ? $arCounters['COMPARE']['HREF']['VALUE'] : $arCounters['COMPARE']['HREF']);?>"></a>
+					<a href="<?=$arCounters['COMPARE']['HREF']?>"></a>
 					<div id="compare_fly" class="wraps_icon_block compare <?=($arCounters['COMPARE']['COUNT'] ? '' : 'empty_block');?>">
 						<div class="count <?=($arCounters['COMPARE']['COUNT'] ? '' : 'empty_items');?>">
 							<span>
@@ -51,8 +52,7 @@
 		</div>
 	</div>
 	<?Bitrix\Main\Page\Frame::getInstance()->startDynamicWithID("header-cart");?>
-		<?$basketType = (isset($arTheme['ORDER_BASKET_VIEW']['VALUE']) ? $arTheme['ORDER_BASKET_VIEW']['VALUE'] : $arTheme['ORDER_BASKET_VIEW']);?>
-		<?if($basketType != "NORMAL"):?>
+		<?if($arTheme["ORDER_BASKET_VIEW"]["VALUE"] != "NORMAL"):?>
 			<script type="text/javascript">
 				arBasketAsproCounters = <?=CUtil::PhpToJSObject($arCounters, false)?>;
 				SetActualBasketFlyCounters();

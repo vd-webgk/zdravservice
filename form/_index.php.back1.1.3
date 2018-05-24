@@ -34,7 +34,6 @@ $url_sizes = (htmlspecialchars($_REQUEST['url']) ? htmlspecialchars($_REQUEST['u
 	</div>
 	</div>
 <?elseif($form_id == 'city_chooser'):?>
-	<?$APPLICATION->SetTitle("Выбор города");?>
 	<?include_once('../ajax/city_chooser.php');?>
 <?elseif($form_id == 'ocb'):?>
 	<style type="text/css">

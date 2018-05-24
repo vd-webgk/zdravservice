@@ -14,14 +14,21 @@ if($arRegion)
 }
 ?>
 <?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.top",
-	"products_block",
+	"bitrix:catalog.section",
+	"catalog_block",
 	array(
 		"IBLOCK_TYPE" => "aspro_next_catalog",
 		"IBLOCK_ID" => "20",
 		"ELEMENT_SORT_FIELD" => "sort",
 		"ELEMENT_SORT_ORDER" => "asc",
-		"ELEMENT_COUNT" => "20",
+		"ELEMENT_COUNT" => ($arParams["LINKED_ELEMENST_PAGE_COUNT"] ? $arParams["LINKED_ELEMENST_PAGE_COUNT"] : 20),
+		"INCLUDE_SUBSECTIONS" => "Y",
+		"SHOW_ALL_WO_SECTION" => "Y",
+		"PAGER_TEMPLATE" => "main",
+		"DISPLAY_TYPE" => "block",
+		"TYPE_SKU" => "TYPE_1",
+		"LINKED_ITEMS" => true,
+		"AJAX_REQUEST" => $arParams["FROM_AJAX"],
 		"LINE_ELEMENT_COUNT" => "4",
 		"PROPERTY_CODE" => array(
 			0 => "",
@@ -53,7 +60,7 @@ if($arRegion)
 		"FILTER_NAME" => "arrProductsFilter",
 		"SHOW_BUY_BUTTONS" => $arParams["SHOW_BUY_BUTTONS"],
 		"USE_PRODUCT_QUANTITY" => "N",
-		"COMPONENT_TEMPLATE" => "products_block",
+		"COMPONENT_TEMPLATE" => "catalog_block",
 		"ELEMENT_SORT_FIELD2" => "id",
 		"ELEMENT_SORT_ORDER2" => "desc",
 		"HIDE_NOT_AVAILABLE" => "N",
