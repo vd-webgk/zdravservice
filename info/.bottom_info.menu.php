@@ -22,7 +22,7 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Вопрос-ответ", 
+		"Вопрос ответ", 
 		"/help/faq/", 
 		Array(), 
 		Array(), 

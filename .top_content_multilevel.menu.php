@@ -8,43 +8,22 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Акции", 
-		"/sale/", 
+		"Правила оформления заказа", 
+		"/service/clearance-rules/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Услуги", 
-		"/services/", 
+		"О компании", 
+		"/company/about/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
-		"Блог", 
-		"/blog/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Проекты", 
-		"/projects/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Как купить", 
-		"/help/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Компания", 
-		"/company/", 
+		"Программа лояльности", 
+		"/service/loyalty-programm/", 
 		Array(), 
 		Array(), 
 		"" 
