@@ -32,6 +32,9 @@
 		"SITE_THEME" => $SITE_THEME,
 		"BANNER_TYPE_THEME" => "TOP",
 		"BANNER_TYPE_THEME_CHILD" => "TOP_SMALL_BANNER",
+		"COMPONENT_TEMPLATE" => "top_one_banner",
+		"FILTER_NAME" => "arRegionLink",
+		"CATALOG" => "/catalog/"
 	),
 	false
 );?>
