@@ -139,7 +139,7 @@
 <div class="maxwidth-theme">
 
 	<?global $arRegion, $isShowCompany;?>
-	<div class="company_bottom_block">		
+	<!--<div class="company_bottom_block">		
 		<div class="row wrap_md">
 			<div class="col-md-3 col-sm-3 hidden-xs img">
 				<?$APPLICATION->IncludeFile(SITE_DIR."include/mainpage/company/front_img.php", Array(), Array( "MODE" => "html", "NAME" => GetMessage("FRONT_IMG") )); ?>
@@ -152,7 +152,7 @@
 				<?endif;?>
 			</div>
 		</div>
-	</div>
+	</div>-->
 
 
 	<?$APPLICATION->IncludeComponent("bitrix:main.include", ".default",
