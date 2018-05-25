@@ -175,3 +175,19 @@ a.icon-text:focus { color: #fff; }
 
 .btn:hover,.btn:active,.btn:focus{outline:none;}
 .btn.btn-default:active:hover{color:#fff;}
+
+.to_basket_from_search{
+    display: block;
+    float: right;
+    background-color: #009b76;
+    height: 34px;
+    width: 34px;
+    border: solid #009b76 2px;
+    border-radius: 2px;
+    margin-top: -50px;
+    color: #ffffff;    
+}
+.basket_in_top_search{
+    margin-bottom: 19px;
+    margin-left: 2px;   
+} 
