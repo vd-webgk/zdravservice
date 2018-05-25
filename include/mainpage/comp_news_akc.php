@@ -5,8 +5,8 @@
 	"bitrix:news.list", 
 	"front_akc", 
 	array(
-		"IBLOCK_TYPE" => "aspro_next_content",
-		"IBLOCK_ID" => "22",
+		"IBLOCK_TYPE" => "news",
+		"IBLOCK_ID" => "1",
 		"NEWS_COUNT" => "5",
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_ORDER1" => "DESC",
@@ -19,8 +19,9 @@
 			3 => "",
 		),
 		"PROPERTY_CODE" => array(
-			0 => "PERIOD",
-			1 => "",
+			0 => "",
+			1 => "PERIOD",
+			2 => "",
 		),
 		"CHECK_DATES" => "Y",
 		"DETAIL_URL" => "",
@@ -56,14 +57,15 @@
 		"SET_META_KEYWORDS" => "N",
 		"SET_META_DESCRIPTION" => "N",
 		"FILTER_NAME" => "arRegionLinkFront",
-		"TITLE_BLOCK" => "Акции",
+		"TITLE_BLOCK" => "Новости",
 		"SET_LAST_MODIFIED" => "N",
-		"ALL_URL" => "sale/",
+		"ALL_URL" => "news/",
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"SHOW_404" => "N",
 		"MESSAGE_404" => "",
-		"TITLE_BLOCK_ALL" => "Все акции",
-		"DISPLAY_DATE" => "Y"
+		"TITLE_BLOCK_ALL" => "Все новости",
+		"DISPLAY_DATE" => "Y",
+		"STRICT_SECTION_CHECK" => "N"
 	),
 	false,
 	array(
