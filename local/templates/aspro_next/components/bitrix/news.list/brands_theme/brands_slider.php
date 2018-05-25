@@ -13,9 +13,7 @@ $bAnimation = (bool)$slideshowSpeed;
 			?>
 			<?if( is_array($arItem["PREVIEW_PICTURE"]) ){?>
 				<li class="visible" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
-					<a href="<?=$arItem["DETAIL_PAGE_URL"]?>">
-						<img class="noborder" src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$arItem["NAME"]?>" title="<?=$arItem["NAME"]?>" />
-					</a>
+				    <img class="noborder" src="<?=$arItem["PREVIEW_PICTURE"]["SRC"]?>" alt="<?=$arItem["NAME"]?>" title="<?=$arItem["NAME"]?>" />
 				</li>
 			<?}?>
 		<?}?>
