@@ -180,14 +180,24 @@ a.icon-text:focus { color: #fff; }
     display: block;
     float: right;
     background-color: #009b76;
-    height: 34px;
-    width: 34px;
+    height: 30px;
+    width: 30px;
     border: solid #009b76 2px;
     border-radius: 2px;
-    margin-top: -50px;
-    color: #ffffff;    
+    margin-top: -65px;
+    margin-right: 30px;
+    color: #ffffff;
+   /* background-image: url('/local/templates/aspro_next/images/svg/Basket_title_search.svg');  */ 
+    background-repeat: no-repeat;                                                              
 }
 .basket_in_top_search{
     margin-bottom: 19px;
-    margin-left: 2px;   
-} 
+    margin-left: 1px;   
+}
+.search_add-basket_block{
+    margin-right: 30px;
+}
+.svg_basket_title{
+    display: block;
+    pointer-events: none;
+}
