@@ -1,7 +1,8 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetPageProperty("viewed_show", "Y");
-$APPLICATION->SetTitle("Здесь аптека");
+$APPLICATION->SetTitle("Правила доставки");
 ?>
+
+Text here....
 
 <?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

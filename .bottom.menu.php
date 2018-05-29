@@ -2,7 +2,7 @@
 $aMenuLinks = Array(
 	Array(
 		"Сервис", 
-		"service/", 
+		"", 
 		Array(), 
 		Array(), 
 		"" 
@@ -16,21 +16,14 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Программа лояльности", 
-		"/service/loyalty-programm/", 
+		"/loyalty-programm/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Акции", 
-		"/service/promo/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"", 
-		"", 
+		"/promo/", 
 		Array(), 
 		Array(), 
 		"" 

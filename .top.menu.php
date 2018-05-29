@@ -9,21 +9,21 @@ $aMenuLinks = Array(
 	),
 	Array(
 		"Правила оформления заказа", 
-		"/service/clearance-rules/", 
+		"/clearance-rules/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"О компании", 
-		"/company/about/", 
+		"/company/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
 	Array(
 		"Программа лояльности", 
-		"/service/loyalty-programm/", 
+		"/loyalty-programm/", 
 		Array(), 
 		Array(), 
 		"" 

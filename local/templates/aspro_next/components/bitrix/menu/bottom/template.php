@@ -58,7 +58,7 @@ $colsm = 12;
 								<?if($bLink):?>
 									<a href="<?=$arItem['LINK']?>"><?=$arItem['TEXT']?></a>
 								<?else:?>
-									<span><?=$arItem['TEXT']?></span>
+									<span class="white_middle_text"><?=$arItem['TEXT']?></span>
 								<?endif;?>
 							</div>
 						</div>
