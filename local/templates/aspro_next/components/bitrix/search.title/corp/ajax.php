@@ -14,7 +14,8 @@
 					</div>
 				</div>
 			<?elseif(isset($arResult["ELEMENTS"][$arItem["ITEM_ID"]])):
-				$arElement = $arResult["ELEMENTS"][$arItem["ITEM_ID"]];?>
+				$arElement = $arResult["ELEMENTS"][$arItem["ITEM_ID"]];
+                ?>
 				<a class="bx_item_block" href="<?=$arItem["URL"]?>">
 					<div class="maxwidth-theme">
 						<div class="bx_img_element">
@@ -60,16 +61,13 @@
 						<div style="clear:both;"></div>
 					</div>                 
 				</a>
-                <?
-                $arSelect = array();
-                $arFilter = array();              
-                ?>               
-                <div class="to_basket_from_search shine">
-                    <object class="svg_basket_title shine" type="image/svg+xml" data="/local/templates/aspro_next/images/svg/Basket_title_search.svg">
-                        <img src="/local/templates/aspro_next/images/svg/Basket_title_search.svg" class="svg_basket_title"/>
-                    </object>
-                </div>
-                 
+                <?if($arElement['CATALOG_QUANTITY'] > 0){?>           
+                    <div class="to_basket_from_search shine">
+                        <object class="svg_basket_title shine" type="image/svg+xml" data="/local/templates/aspro_next/images/svg/Basket_title_search.svg">
+                            <img src="/local/templates/aspro_next/images/svg/Basket_title_search.svg" class="svg_basket_title"/>
+                        </object>
+                    </div>
+                <?}?>                
 			<?else:?>
 				<?if($arItem["MODULE_ID"]):?>
 					<a class="bx_item_block others_result" href="<?=$arItem["URL"]?>">
@@ -85,15 +83,3 @@
 		<?endforeach;?>
 	<?endforeach;?>
 </div>
-<script>
-$(document).on('click', function(e){
-    if($(e.target).hasClass('to_basket_from_search'))
-    {
-     console.log(1);
-        
-    } else{
-     console.log(2);      
-    }
-
-});         
-</script>
