@@ -340,6 +340,7 @@ $APPLICATION->IncludeComponent(
 		"TOP_OFFERS_LIMIT" => "10",
 		"SECTION_TOP_BLOCK_TITLE" => "Лучшие предложения",
 		"OFFER_TREE_PROPS" => array(
+			0 => "STRANA_PROIZVODITELYA",
 		),
 		"USE_BIG_DATA" => "Y",
 		"BIG_DATA_RCM_TYPE" => "bestsell",
