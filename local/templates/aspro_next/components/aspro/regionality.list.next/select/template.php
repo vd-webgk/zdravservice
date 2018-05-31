@@ -18,12 +18,13 @@ if($arResult['REGIONS']):?>
             }?>
                 <?if ($_SESSION["GEOIP"]["cityName"]){                                      //если удалось получить город по АПИ
                     $currentCityLocate = $_SESSION["GEOIP"]["cityName"];
-                        if (in_array($allCityNames, $_SESSION["GEOIP"]["cityName"])){?>  <?//Если в списке всех городов есть город, который определил модуль, то выводим название города?>
+                        if (in_array($currentCityLocate, $allCityNames)){?>  <?//Если в списке всех городов есть город, который определил модуль, то выводим название города?>
                             <span><?=$currentCityLocate?></span><span class="arrow"><i></i></span>  
-                            <?}else{?>
-                            <span><?=$arResult['CURRENT_REGION']['NAME'];?></span><span class="arrow"><i></i></span>
                         <?}?>
+                <?}else{?>
+                    <span><?=$arResult['CURRENT_REGION']['NAME'];?></span><span class="arrow"><i></i></span>
                 <?}?>
+                
         </div>
         <div class="dropdown">
             <div class="wrap">
