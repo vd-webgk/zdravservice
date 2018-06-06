@@ -1,9 +1,9 @@
 <?
-use Webgk\Main\gettingClientsInfo;
+use Webgk\Main\ClientInfoClass;
 
 function gettingClientsInfoAgent() {
-if (gettingClientsInfo::ClientsInfo) {
-    return true;
+if (ClientInfoClass::ClientsInfo) {
+    return "gettingClientsInfoAgent();";
 }    
 }
 
@@ -12,7 +12,9 @@ AddEventHandler('main', 'OnAfterUserRegister', 'gettingNewClientInfo');
 function gettingNewClientInfo(&$arFields) {
     $userInfo = CUser::GetByID($arFields["ID"]);
     while ($user = $userInfo -> Fetch()) {
-        gettingClientsInfo::ClientsInfo($user["PERSONAL_PHONE"]);
+        if ($user["PERSONAL_PHONE"]) {
+            ClientInfoClass::ClientsInfo($user["PERSONAL_PHONE"]);
+        }
     }
 }
 ?>
