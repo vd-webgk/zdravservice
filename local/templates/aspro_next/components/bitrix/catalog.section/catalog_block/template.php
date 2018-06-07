@@ -198,22 +198,34 @@
 										);*/?>
 									<!--</div>-->
 								<?endif;?>
-                                <div class="show_block_props">
-                                <div style="display: none"><?print_r($arItem["DISPLAY_PROPERTIES"]);?></div><?
-                                foreach( $arItem["DISPLAY_PROPERTIES"] as $arProp ){?>
-                                    <?if( !empty( $arProp["VALUE"] ) ){
-                                        if($arProp['ID'] == 323 || $arProp['ID'] == 324)?>
-                                        <div class="show_block_props_element">
-                                        <span class="element_name"><?=$arProp["NAME"]?></span>
-                                        <span class="element_value"><?=$arProp["VALUE"]?></span>
-                                        </div>
-                                        <?
-                                        /*if(count($arProp["DISPLAY_VALUE"])>1) { foreach($arProp["DISPLAY_VALUE"] as $key => $value) { if ($arProp["DISPLAY_VALUE"][$key+1]) {echo $value.", ";} else {echo $value;} }}
-                                        else { echo $arProp["DISPLAY_VALUE"]; }*/
-                                        
-                                        ?>
-                                <?}}?>
-                                </div>
+                                <div style="display: none;"><?print_r($arItem["DISPLAY_PROPERTIES"])?></div>
+                                <?if(!empty($arItem["DISPLAY_PROPERTIES"]['STRANA_PROIZVODITELYA']['VALUE']) || !empty($arItem["DISPLAY_PROPERTIES"]['DEYSTVUYUSHCHEE_VESHCHESTVO']['VALUE'])){?>
+                                    <div class="show_block_props">
+                                    <?foreach( $arItem["DISPLAY_PROPERTIES"] as $arProp ){?>
+                                        <?if($arProp['ID'] == 323){?>
+                                            <div class="show_block_props_element">
+                                            <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
+                                            <span class="element_value"><?=$arProp["VALUE"]?></span>
+                                            </div>
+                                        <?} elseif($arProp['ID'] == 324) {?>
+                                            <div class="show_block_props_element">
+                                            <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
+                                            <?if(strripos($arProp["VALUE"], "*")){
+                                                $valueProp = strpos($arProp["VALUE"], "*");
+                                                $cutValueProp = substr($arProp["VALUE"], 0, $valueProp);?>
+                                                <span class="element_value"><?=$cutValueProp?></span>
+                                            <?} else {?>
+                                                <span class="element_value"><?=$arProp["VALUE"]?></span>
+                                            <?}?>
+                                            </div>
+                                        <?}?>                                      
+                                            <?
+                                                /*if(count($arProp["DISPLAY_VALUE"])>1) { foreach($arProp["DISPLAY_VALUE"] as $key => $value) { if ($arProp["DISPLAY_VALUE"][$key+1]) {echo $value.", ";} else {echo $value;} }}
+                                                else { echo $arProp["DISPLAY_VALUE"]; }*/                            
+                                            ?>
+                                    <?}?>
+                                    </div>
+                                <?}?>
 								<div class="sa_block">
 									<?=$arQuantityData["HTML"];?>
 									<div class="article_block">
