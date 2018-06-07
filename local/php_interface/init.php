@@ -2,7 +2,7 @@
 use Webgk\Main\ClientInfoClass;
 
 function gettingClientsInfoAgent() {
-if (ClientInfoClass::ClientsInfo) {
+if (ClientInfoClass::checkUpdatedClientsInfo) {
     return "gettingClientsInfoAgent();";
 }    
 }
