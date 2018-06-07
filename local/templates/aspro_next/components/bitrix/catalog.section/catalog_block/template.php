@@ -179,35 +179,16 @@
 								<div class="item-title">
 									<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><span><?=$elementName;?></span></a>
 								</div>
-								<?if($arParams["SHOW_RATING"] == "Y"):?>
-									<!--<div class="rating"> -->
-										<?/*$APPLICATION->IncludeComponent(
-										   "bitrix:iblock.vote",
-										   "element_rating_front",
-										   Array(
-											  "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-											  "IBLOCK_ID" => $arItem["IBLOCK_ID"],
-											  "ELEMENT_ID" =>$arItem["ID"],
-											  "MAX_VOTE" => 5,
-											  "VOTE_NAMES" => array(),
-											  "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-											  "CACHE_TIME" => $arParams["CACHE_TIME"],
-											  "DISPLAY_AS_RATING" => 'vote_avg'
-										   ),
-										   $component, array("HIDE_ICONS" =>"Y")
-										);*/?>
-									<!--</div>-->
-								<?endif;?>
                                 <div style="display: none;"><?print_r($arItem["DISPLAY_PROPERTIES"])?></div>
                                 <?if(!empty($arItem["DISPLAY_PROPERTIES"]['STRANA_PROIZVODITELYA']['VALUE']) || !empty($arItem["DISPLAY_PROPERTIES"]['DEYSTVUYUSHCHEE_VESHCHESTVO']['VALUE'])){?>
                                     <div class="show_block_props">
                                     <?foreach( $arItem["DISPLAY_PROPERTIES"] as $arProp ){?>
-                                        <?if($arProp['ID'] == 323){?>
+                                        <?if($arProp['CODE'] == 'STRANA_PROIZVODITELYA'){?>
                                             <div class="show_block_props_element">
                                             <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
                                             <span class="element_value"><?=$arProp["VALUE"]?></span>
                                             </div>
-                                        <?} elseif($arProp['ID'] == 324) {?>
+                                        <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
                                             <div class="show_block_props_element">
                                             <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
                                             <?if(strripos($arProp["VALUE"], "*")){
@@ -219,10 +200,6 @@
                                             <?}?>
                                             </div>
                                         <?}?>                                      
-                                            <?
-                                                /*if(count($arProp["DISPLAY_VALUE"])>1) { foreach($arProp["DISPLAY_VALUE"] as $key => $value) { if ($arProp["DISPLAY_VALUE"][$key+1]) {echo $value.", ";} else {echo $value;} }}
-                                                else { echo $arProp["DISPLAY_VALUE"]; }*/                            
-                                            ?>
                                     <?}?>
                                     </div>
                                 <?}?>
