@@ -85,13 +85,15 @@ class ClientInfoClass {
       // if (CModule::IncludeModule('highloadblock')) {
           $hlblockId = HLBlockClass::gettingHLBlockId("ClientsBonusCards");
            $hlblock = HL\HighloadBlockTable::getById($hlblockId) -> fetch();
-           $entity_data_class = $hlblock->getDataClass();
+           $entity = HL\HighloadBlockTable::compileEntity($hlblock);
+           $entity_data_class = $entity->getDataClass();
            $entity_table_name = $hlblock["TABLE_NAME"];
            $sTableID = 'tbl_'.$entity_table_name;
            $resultData = $entity_data_class::getList(
                array(
                     "select" => array("*"),
-                    "filter" => array(">TIMESTAMP_X" => time() - 86400)
+                    "filter" => array(">UF_TIMESTAMP_X" => time() - 86400),
+                    "limit" => 100
                )
            );
            $resultData = new \CDBResult($resultData, $sTableID);
