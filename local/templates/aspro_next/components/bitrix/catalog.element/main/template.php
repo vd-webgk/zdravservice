@@ -317,6 +317,13 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 	</div>
 	<div class="right_info">
 		<div class="info_item">
+            <div class="element_prescription">
+                <?foreach($arResult['PROPERTIES'] as $elementProperty){
+                    if($elementProperty['CODE'] == 'RETSEPTURNYY_PREDYAVLENIE'){?>
+                        <span><?$elementProperty['VALUE']?></span>
+                    <?}
+                }?>
+            </div>
 			<?$isArticle=(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer));?>
 			<?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"])){?>
 				<div class="top_info">
@@ -601,6 +608,34 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 				</div>
 			</div>
 		</div>
+        <?if(!empty($arResult['PROPERTIES'])){?>
+            <div class="right_side_property">
+            <?
+            foreach($arResult['PROPERTIES'] as $elementProperty){
+                 if(!empty($elementProperty['VALUE'])){?>             
+                    <div class="property_<?=$elementProperty['ID']?>">
+                    <?if($elementProperty['CODE'] == 'STRANA_PROIZVODITELYA'){?>      
+                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
+                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
+                    <?}?>
+                    <?if($elementProperty['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO'){?>      
+                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
+                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
+                    <?}?>
+                    <?if($elementProperty['CODE'] == 'FORMA_VYPUSKA'){?>      
+                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
+                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
+                    <?}?>
+                    <?if($elementProperty['CODE'] == 'PROIZVODITEL'){?>      
+                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
+                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
+                    <?}?>
+                    </div>
+                  <?}?>          
+            <?}
+            ?>
+            </div>
+        <?}?>
 	</div>
 	<?$bPriceCount = ($arParams['USE_PRICE_COUNT'] == 'Y');?>
 	<?if($arResult['OFFERS']):?>
