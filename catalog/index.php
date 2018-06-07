@@ -219,7 +219,7 @@ $APPLICATION->IncludeComponent(
 			21 => "",
 		),
 		"PROPERTIES_DISPLAY_LOCATION" => "DESCRIPTION",
-		"SHOW_BRAND_PICTURE" => "Y",
+		"SHOW_BRAND_PICTURE" => "N",
 		"SHOW_ASK_BLOCK" => "Y",
 		"ASK_FORM_ID" => "2",
 		"SHOW_ADDITIONAL_TAB" => "Y",
