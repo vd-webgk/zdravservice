@@ -3825,7 +3825,7 @@ body .bx_catalog_item_scu .bx_item_detail_scu ul li:hover .cnt1.nf{background-co
 .catalog_block .catalog_item_wrapp.item{margin-bottom:-1px;}
 
 .wproduct .item-stock > span{font-size:13px;}
-
+                 
 /*table*/
 .module_products_list .foto-cell .image_wrapper_block, .module_products_list .foto-cell .image_wrapper_block a{width:50px;min-width:30px;height:50px;line-height:50px;position:relative;}
 .module_products_list .cost.prices .price.discount{margin:0px;vertical-align:text-top;position:relative;top:-1px;}
