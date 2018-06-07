@@ -857,22 +857,28 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 		<ul class="nav nav-tabs">
 			<?$iTab = 0;?>
 			<?$instr_prop = ($arParams["DETAIL_DOCS_PROP"] ? $arParams["DETAIL_DOCS_PROP"] : "INSTRUCTIONS");?>
-			<?if($arResult["OFFERS"] && $arParams["TYPE_SKU"]=="N"):?>
+			<?/*if($arResult["OFFERS"] && $arParams["TYPE_SKU"]=="N"):?>
 				<li class="prices_tab<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#prices_offer" data-toggle="tab"><span><?=($arParams["TAB_OFFERS_NAME"] ? $arParams["TAB_OFFERS_NAME"] : GetMessage("OFFER_PRICES"));?></span></a>
 				</li>
-			<?endif;?>
+			<?endif;*/?>
 			<?if($arResult["DETAIL_TEXT"] || $arResult['ADDITIONAL_GALLERY'] || count($arResult["SERVICES"]) || ((count($arResult["PROPERTIES"][$instr_prop]["VALUE"]) && is_array($arResult["PROPERTIES"][$instr_prop]["VALUE"])) || count($arResult["SECTION_FULL"]["UF_FILES"])) || ($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB")):?>
 				<li class="<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#descr" data-toggle="tab"><span><?=($arParams["TAB_DESCR_NAME"] ? $arParams["TAB_DESCR_NAME"] : GetMessage("DESCRIPTION_TAB"));?></span></a>
 				</li>
+                <li class="<?=(!($iTab++) ? ' active' : '')?>">
+                    <a href="#instructions_for_use" data-toggle="tab"><span><?=GetMessage("INSTRUCTIONS_FOR_USE");?></span></a>
+                </li>
+                <li class="<?=(!($iTab++) ? ' active' : '')?>">  
+                    <a href="#descr" data-toggle="tab"><span><?=GetMessage("CONTRAINDICATIONS");?></span></a>
+                </li>
 			<?endif;?>
-			<?if($arParams["PROPERTIES_DISPLAY_LOCATION"] == "TAB" && $showProps):?>
+			<?/*if($arParams["PROPERTIES_DISPLAY_LOCATION"] == "TAB" && $showProps):?>
 				<li class="<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#props" data-toggle="tab"><span><?=($arParams["TAB_CHAR_NAME"] ? $arParams["TAB_CHAR_NAME"] : GetMessage("PROPERTIES_TAB"));?></span></a>
 				</li>
-			<?endif;?>
-			<?if($arVideo):?>
+			<?endif;*/?>
+			<?/*if($arVideo):?>
 				<li class="<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#video" data-toggle="tab">
 						<span><?=($arParams["TAB_VIDEO_NAME"] ? $arParams["TAB_VIDEO_NAME"] : GetMessage("VIDEO_TAB"));?></span>
@@ -881,27 +887,27 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 						<?endif;?>
 					</a>
 				</li>
-			<?endif;?>
-			<?if($arParams["USE_REVIEW"] == "Y"):?>
+			<?endif;*/?>
+			<?/*if($arParams["USE_REVIEW"] == "Y"):?>
 				<li class="product_reviews_tab<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#review" data-toggle="tab"><span><?=($arParams["TAB_REVIEW_NAME"] ? $arParams["TAB_REVIEW_NAME"] : GetMessage("REVIEW_TAB"))?></span><span class="count empty"></span></a>
 				</li>
-			<?endif;?>
+			<?endif;*/?>
 			<?if(($arParams["SHOW_ASK_BLOCK"] == "Y") && (intVal($arParams["ASK_FORM_ID"]))):?>
 				<li class="product_ask_tab <?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#ask" data-toggle="tab"><span><?=($arParams["TAB_FAQ_NAME"] ? $arParams["TAB_FAQ_NAME"] : GetMessage('ASK_TAB'))?></span></a>
 				</li>
 			<?endif;?>
-			<?if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
+			<?/*if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
 				<li class="stores_tab<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#stores" data-toggle="tab"><span><?=($arParams["TAB_STOCK_NAME"] ? $arParams["TAB_STOCK_NAME"] : GetMessage("STORES_TAB"));?></span></a>
 				</li>
-			<?endif;?>
-			<?if($arParams["SHOW_ADDITIONAL_TAB"] == "Y"):?>
+			<?endif;*/?>
+			<?/*if($arParams["SHOW_ADDITIONAL_TAB"] == "Y"):?>
 				<li class="<?=(!($iTab++) ? ' active' : '')?>">
 					<a href="#dops" data-toggle="tab"><span><?=($arParams["TAB_DOPS_NAME"] ? $arParams["TAB_DOPS_NAME"] : GetMessage("ADDITIONAL_TAB"));?></span></a>
 				</li>
-			<?endif;?>
+			<?endif;*/?>
 		</ul>
 		<div class="tab-content">
 			<?$show_tabs = false;?>
