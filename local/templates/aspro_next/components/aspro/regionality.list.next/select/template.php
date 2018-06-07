@@ -13,17 +13,8 @@ if($arResult['REGIONS']):?>
     <div class="region_wrapper">
         <div class="city_title"><?=Loc::getMessage('CITY_TITLE');?></div>
         <div class="js_city_chooser colored list" data-param-url="<?=urlencode($APPLICATION->GetCurUri());?>" data-param-form_id="city_chooser">
-            <?foreach ($arResult['REGIONS'] as $item){                                      //Собрали список всех существующих городов в массив
-                $allCityNames[] = $item['NAME'];
-            }?>
-                <?if ($_SESSION["GEOIP"]["cityName"]){                                      //если удалось получить город по АПИ
-                    $currentCityLocate = $_SESSION["GEOIP"]["cityName"];
-                        if (in_array($currentCityLocate, $allCityNames)){?>  <?//Если в списке всех городов есть город, который определил модуль, то выводим название города?>
-                            <span><?=$currentCityLocate?></span><span class="arrow"><i></i></span>  
-                        <?}?>
-                <?}else{?>
-                    <span><?=$arResult['CURRENT_REGION']['NAME'];?></span><span class="arrow"><i></i></span>
-                <?}?>
+            
+                            <span><?=$arResult['CURRENT_REGION']['NAME'];?></span><span class="arrow"><i></i></span>
                 
         </div>
         <div class="dropdown">
