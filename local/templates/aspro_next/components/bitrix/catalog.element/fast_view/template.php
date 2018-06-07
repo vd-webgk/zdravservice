@@ -448,8 +448,8 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 		<div class="info_item scrollbar">
 			<div class="title"><a href="<?=$arResult["DETAIL_PAGE_URL"];?>" class="dark_link"><?=$elementName;?></a></div>
 			<div class="top_info">
-				<?if($arParams["SHOW_RATING"] == "Y"):?>
-					<?$frame = $this->createFrame('dv_'.$arResult["ID"])->begin('');?>
+				<?/*if($arParams["SHOW_RATING"] == "Y"):?>
+					<?/*$frame = $this->createFrame('dv_'.$arResult["ID"])->begin('');?>
 						<div class="rating">
 							<?$APPLICATION->IncludeComponent(
 							   "bitrix:iblock.vote",
@@ -467,8 +467,8 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 							   $component, array("HIDE_ICONS" =>"Y")
 							);?>
 						</div>
-					<?$frame->end();?>
-				<?endif;?>
+					<?$frame->end();*/?>
+				<?/*endif;*/?>
 				<div class="rows_block">
 					<div class="item_block">
 						<?=$arQuantityData["HTML"];?>
@@ -482,14 +482,14 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 						</div>
 					<?//endif;?>
 				</div>
-				<?if($arParams["SHOW_CHEAPER_FORM"] == "Y"):?>
-					<div class="quantity_block_wrapper">
+				<?/*if($arParams["SHOW_CHEAPER_FORM"] == "Y"):?>
+					<!--<div class="quantity_block_wrapper">
 						<div class="cheaper_form">
 							<span class="animate-load" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?=CNext::formatJsName($arResult["NAME"]);?>" data-autoload-product_id="<?=$arResult["ID"];?>"><?=($arParams["CHEAPER_FORM_NAME"] ? $arParams["CHEAPER_FORM_NAME"] : GetMessage("CHEAPER"));?></span>
 							</div>
 						</div>
-					</div>
-				<?endif;?>
+					</div>-->
+				<?endif;*/?>
 				<div class="sku_block">
 					<?if($arResult["OFFERS"] && $showCustomOffer){?>
 						<div class="sku_props">
