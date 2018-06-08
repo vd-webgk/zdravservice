@@ -505,15 +505,8 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                                                         <div style="display: none;"><pre><?print_r($explodeStr)?></pre></div>
                                                         <?
                                                         if(strrpos($explodeStr[0], "*")){
-                                                            $valuePropTemp = strrpos($explodeStr[0], "*");
-                                                            $cutValueProp = explode('*',$explodeStr[0]);
-                                                            for($i = 0; $i < count($cutValueProp); $i++){                                                  
-                                                                $tmpStr = $tmpStr.$cutValueProp[$i];
-                                                            }
-                                                            $formatedStr = $tmpStr;
-                                                            $tmpStr = '';                                                 
-                                                            ?>
-                                                            <span itemprop="value"><?=trim($formatedStr, " ")?></span>
+                                                           $formatedStr = str_replace("*", "", $explodeStr[0]);?>
+                                                           <span itemprop="value"><?=trim($formatedStr, " ")?></span>
                                                         <?} else {?>
                                                             <span itemprop="value"><?=trim($explodeStr[0], " ")?></span>
                                                         <?}
