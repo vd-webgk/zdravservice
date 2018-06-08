@@ -110,7 +110,7 @@ $APPLICATION->IncludeComponent(
 		"COMPARE_ELEMENT_SORT_ORDER" => "asc",
 		"DISPLAY_ELEMENT_SELECT_BOX" => "N",
 		"PRICE_CODE" => array(
-			0 => "Розничная",
+			0 => "Тульская область",
 		),
 		"USE_PRICE_COUNT" => "Y",
 		"SHOW_PRICE_COUNT" => "1",
