@@ -26,15 +26,22 @@ class CSVToArray
         if ($hasFieldNames) {
 
             if (is_array($hasFieldNames)) {
-                $keys = $hasFieldNames:
+                $keys = $hasFieldNames;
             } else {
                 $keys = fgetcsv($file, 0, $delimiter, $enclosure);
             }
         }
+
         while (($row = fgetcsv($file, 0, $delimiter, $enclosure)) !== false) {
             $n = count($row); $res=array();
             for($i = 0; $i < $n; $i++) {
-                $idx = ($hasFieldNames) ? $keys[$i] : $i;
+                if ($hasFieldNames && isset($keys[$i])) {
+                    $idx = $keys[$i];
+                } else {
+                    $idx = $i;
+                }
+
+                // $idx = ($hasFieldNames) ? $keys[$i] : $i;
                 $res[$idx] = $row[$i];
             }
             $result[] = $res;
