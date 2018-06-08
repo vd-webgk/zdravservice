@@ -327,7 +327,8 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
             
             
 			<?$isArticle=(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer));?>
-			<?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"]) || $arResult['DISPLAY_PROPERTIES']){?>
+
+			<?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"]) || $arResult["DISPLAY_PROPERTIES"]){?>
 				<div class="top_info">
 					<div class="rows_block">
 						<?$col=1;
@@ -427,7 +428,37 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                         <?}?>
 					<?if(strlen($arResult["PREVIEW_TEXT"])):?>
 						<div class="preview_text dotdot"><?=$arResult["PREVIEW_TEXT"]?></div>
-						<?if(strlen($arResult["DETAIL_TEXT"])):?>
+                        <?if($arResult["DISPLAY_PROPERTIES"]){?>
+                        <div class="preview_text dotdot">
+                                        <table class="props_list">
+                                            <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
+                                                <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
+                                                    <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
+                                                        <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+                                                            <td class="char_name">
+                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
+                                                                <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
+                                                                    <span itemprop="name"><?=$arProp["NAME"]?></span>
+                                                                </div>
+                                                            </td>
+                                                            <td class="char_value">
+                                                                <span itemprop="value">
+                                                                    <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
+                                                                        <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+                                                                    <?else:?>
+                                                                        <?=$arProp["DISPLAY_VALUE"];?>
+                                                                    <?endif;?>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    <?endif;?>
+                                                <?endif;?>
+                                            <?endforeach;?>
+                                        </table>
+                                        <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
+                                    </div>
+                    <?}?>
+						<?if(!strlen($arResult["DETAIL_TEXT"])):?>
 							<div class="more_block icons_fa color_link"><span><?=GetMessage('MORE_TEXT_BOTTOM');?></span></div>
 						<?endif;?>
 					<?endif;?>
