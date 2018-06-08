@@ -498,11 +498,22 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 										</td>
 										<td class="char_value">
 											<span itemprop="value">
-												<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-													<?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-												<?else:?>
-													<?=$arProp["DISPLAY_VALUE"];?>
-												<?endif;?>
+                                                <?if($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {
+                                                        $arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                                        if(strripos($arProp["VALUE"], "(")){
+                                                            $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                            <span itemprop="value"><?=trim($explodeStr[0], " ")?></span>
+                                                         <?} else {?>
+                                                            <span itemprop="value"><?=$arProp["VALUE"]?></span> 
+                                                         <?}?>
+                                                <?} else {?>
+												    <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
+													    <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+												    <?else:?>
+													    <?=$arProp["DISPLAY_VALUE"];?>
+												    <?endif;
+                                                }?>
+                                                                                               
 											</span>
 										</td>
 									</tr>
