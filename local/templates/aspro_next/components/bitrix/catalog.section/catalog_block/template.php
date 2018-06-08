@@ -192,18 +192,9 @@
                                             <div class="show_block_props_element">
                                             <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
                                             <?if(strripos($arProp["VALUE"], "(")){
-                                                $explodeStr = explode('(',$arProp["VALUE"]);
-                                                ?>
-                                                <div style="display: none;"><pre><?print_r($explodeStr)?></pre></div>
-                                                <?
+                                                $explodeStr = explode('(',$arProp["VALUE"]);                                                
                                                 if(strrpos($explodeStr[0], "*")){
-                                                    $valuePropTemp = strrpos($explodeStr[0], "*");
-                                                    $cutValueProp = explode('*',$explodeStr[0]);
-                                                    for($i = 0; $i < count($cutValueProp); $i++){                                                  
-                                                        $tmpStr = $tmpStr.$cutValueProp[$i];
-                                                    }
-                                                    $formatedStr = $tmpStr;
-                                                    $tmpStr = '';                                                 
+                                                    $formatedStr = str_replace("*", "", $explodeStr[0]);                                                
                                                     ?>
                                                     <span class="element_value"><?=trim($formatedStr, " ")?></span>
                                                 <?} else {?>
