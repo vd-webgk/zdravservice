@@ -324,8 +324,10 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     <?}
                 }?>
             </div>
+            
+            
 			<?$isArticle=(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer));?>
-			<?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"])){?>
+			<?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"]) || $arResult['DISPLAY_PROPERTIES']){?>
 				<div class="top_info">
 					<div class="rows_block">
 						<?$col=1;
@@ -381,6 +383,48 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 							</div>
 						<?}?>
 					</div>
+                    <?if($arResult["DISPLAY_PROPERTIES"]){?>
+                       <div class="properties_before_preview_text">
+                            <table class="props_list">
+                                <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
+                                    <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
+                                        <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
+                                            <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
+                                                <td class="char_name">
+                                                    <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
+                                                    <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
+                                                        <span itemprop="name"><?=$arProp["NAME"]?></span>
+                                                    </div>
+                                                </td>
+                                                <td class="char_value">
+                                                    <?if($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {
+                                                        $arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                                        if(strripos($arProp["VALUE"], "(")){
+                                                            $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                            <span itemprop="value"><?=trim($explodeStr[0], " ")?></span>
+                                                         <?} else {?>
+                                                            <span itemprop="value"><?=$arProp["VALUE"]?></span> 
+                                                         <?}?>
+                                                <?} else {?>
+                                                        <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
+                                                            <span itemprop="value">
+                                                                <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+                                                            </span>
+                                                        <?else:?>
+                                                        <span itemprop="value">
+                                                            <?=$arProp["DISPLAY_VALUE"];?>
+                                                        </span>
+                                                        <?endif;?>
+                                                        <?}?>
+                                                </td>
+                                            </tr>
+                                        <?endif;?>
+                                    <?endif;?>
+                                <?endforeach;?>
+                            </table>
+                            <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
+                        </div>
+                        <?}?>
 					<?if(strlen($arResult["PREVIEW_TEXT"])):?>
 						<div class="preview_text dotdot"><?=$arResult["PREVIEW_TEXT"]?></div>
 						<?if(strlen($arResult["DETAIL_TEXT"])):?>
@@ -608,7 +652,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 				</div>
 			</div>
 		</div>
-        <?if(!empty($arResult['PROPERTIES'])){?>
+        <?/*if(!empty($arResult['PROPERTIES'])){?>
             <div class="right_side_property">
             <?
             foreach($arResult['PROPERTIES'] as $elementProperty){
@@ -635,7 +679,7 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
             <?}
             ?>
             </div>
-        <?}?>
+        <?}*/?>
         <div class="clearfix"></div>
         <div class="like_wrapper">
             <?if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
