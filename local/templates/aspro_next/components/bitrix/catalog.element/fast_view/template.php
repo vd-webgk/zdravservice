@@ -498,11 +498,35 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 										</td>
 										<td class="char_value">
 											<span itemprop="value">
-												<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-													<?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-												<?else:?>
-													<?=$arProp["DISPLAY_VALUE"];?>
-												<?endif;?>
+                                                <?if($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
+                                                    <?if(strripos($arProp["VALUE"], "(")){
+                                                        $explodeStr = explode('(',$arProp["VALUE"]);
+                                                        ?>
+                                                        <div style="display: none;"><pre><?print_r($explodeStr)?></pre></div>
+                                                        <?
+                                                        if(strrpos($explodeStr[0], "*")){
+                                                            $valuePropTemp = strrpos($explodeStr[0], "*");
+                                                            $cutValueProp = explode('*',$explodeStr[0]);
+                                                            for($i = 0; $i < count($cutValueProp); $i++){                                                  
+                                                                $tmpStr = $tmpStr.$cutValueProp[$i];
+                                                            }
+                                                            $formatedStr = $tmpStr;
+                                                            $tmpStr = '';                                                 
+                                                            ?>
+                                                            <span itemprop="value"><?=trim($formatedStr, " ")?></span>
+                                                        <?} else {?>
+                                                            <span itemprop="value"><?=trim($explodeStr[0], " ")?></span>
+                                                        <?}
+                                                        
+                                                    }
+                                                } else {?>
+												    <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
+													    <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+												    <?else:?>
+													    <?=$arProp["DISPLAY_VALUE"];?>
+												    <?endif;
+                                                }?>
+                                                                                               
 											</span>
 										</td>
 									</tr>
