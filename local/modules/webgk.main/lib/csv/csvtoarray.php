@@ -3,6 +3,7 @@
 namespace Webgk\Main\CSV;
 
 use Webgk\Main\Tools;
+use Webgk\Main\Exception;
 
 /**
  *
@@ -10,7 +11,7 @@ use Webgk\Main\Tools;
 class CSVToArray
 {
 
-    public function CSVParse($file, $index = '', $hasFieldNames = false, $delimiter = ',', $enclosure='"')
+    public function CSVParse($file, $hasFieldNames = false, $delimiter = ',', $enclosure='"')
     {
 
         $result = [];
@@ -24,8 +25,11 @@ class CSVToArray
 
         if ($hasFieldNames) {
 
-            $keys = fgetcsv($file, 0, $delimiter, $enclosure);
-            print_r($keys);
+            if (is_array($hasFieldNames)) {
+                $keys = $hasFieldNames:
+            } else {
+                $keys = fgetcsv($file, 0, $delimiter, $enclosure);
+            }
         }
         while (($row = fgetcsv($file, 0, $delimiter, $enclosure)) !== false) {
             $n = count($row); $res=array();
@@ -36,9 +40,6 @@ class CSVToArray
             $result[] = $res;
         }
 
-        if (strlen($index) > 0) {
-            $result = Tools::getIndexedArray($result,$index);
-        }
         fclose($file);
         return $result;
     }
