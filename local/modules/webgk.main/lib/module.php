@@ -28,7 +28,8 @@ class Module {
         // $eventManager->addEventHandler('main', 'OnEndBufferContent', ['Webgk\Main\Request', "saveBackUrl"]);
         // $eventManager->addEventHandler("iblock", "OnAfterIBlockElementUpdate", ["\\Webgk\\Tools\\catalog\\CatalogSortProperties", "setSortProperties"]);
         // $eventManager->addEventHandler("iblock", "OnAfterIBlockElementAdd", ["\\Webgk\\Tools\\catalog\\CatalogSortProperties", "setSortProperties"]);
-
+        $eventManager->addEventHandler("main", "OnAfterUserRegister",  ['Webgk\Main\ClientBonusInfo', 'gettingNewClientInfo']);
+        
     }
 
     public static function defineConstants()
