@@ -191,13 +191,13 @@
                                         <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
                                             <div class="show_block_props_element">
                                             <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
-                                            <?if(strripos($arProp["VALUE"], "*")){
-                                                $valueProp = strpos($arProp["VALUE"], "*");
-                                                $cutValueProp = substr($arProp["VALUE"], 0, $valueProp);?>
-                                                <span class="element_value"><?=$cutValueProp?></span>
+                                            <?$arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                            if(strripos($arProp["VALUE"], "(")){
+                                                $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                <span class="element_value"><?=trim($explodeStr[0], " ")?></span>
                                             <?} else {?>
-                                                <span class="element_value"><?=$arProp["VALUE"]?></span>
-                                            <?}?>
+                                                <span class="element_value"><?=$arProp["VALUE"]?></span> 
+                                             <?}?>                                            
                                             </div>
                                         <?}?>                                      
                                     <?}?>
