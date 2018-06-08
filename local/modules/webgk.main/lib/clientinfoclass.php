@@ -2,16 +2,12 @@
 
 namespace Webgk\Main;
 use Bitrix\Main\Loader;
-use Bitrix\Main;
+use Bitrix\Main as MainModule;
 use Bitrix\Iblock;    
-use Bitrix\Highloadblock as HL;
-use Bitrix\Main\Entity; 
+use Bitrix\Main\Entity;
+use Bitrix\Main\Option;
+use Webgk\Main\Hlblock\Prototype; 
 class ClientInfoClass {
-    
-    function __construct()
-    {
-        \Bitrix\Main\Loader::includeModule('highloadblock');
-    }
     
     public function ClientsInfo($phoneNumber = ""){
         $curl = curl_init();
@@ -20,12 +16,15 @@ class ClientInfoClass {
     } else {
         return false;
     }
+    $url = \COption::GetOptionString("grain.customsettings", "url"); 
+    $login = \COption::GetOptionString("grain.customsettings", "login");
+    $password = \COption::GetOptionString("grain.customsettings", "password");
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER => 1, //1 - возврат результата в виде строки, 0 - вывод результата в браузер
-        CURLOPT_URL => 'https://ws2.tvojdoktor.ru/Monitoring/hs/Web/GetPhone', //урл для запроса
+        CURLOPT_URL => $url, //урл для запроса
         CURLOPT_PORT => 333,
         CURLOPT_POST => 1, //метод POST
-        CURLOPT_USERPWD => "robot1C:Sa1ch34ee9",
+        CURLOPT_USERPWD => $login.":".$password,
         CURLOPT_POSTFIELDS => $paramArr
     ]);
     // Отправляем запроса и сохраняем его в $res
@@ -41,69 +40,55 @@ class ClientInfoClass {
         }
     }
 
-    foreach ($clientInfo->Balance as $cardBalance) {
-        $totalBalance += floatval($cardBalance);
-    }
+    $totalBalance = floatval($clientInfo->Balance[0]);
     $clientInfoArr["USER_BALANCE"] = $totalBalance;  
     curl_close($curl);
-    //if (CModule::IncludeModule('highloadblock')) {
-    $hlblockId = HLBlockClass::gettingHLBlockId("ClientsBonusCards");
-       $hlblock = HL\HighloadBlockTable::getById($hlblockId) -> fetch();
-       $entity = HL\HighloadBlockTable::compileEntity($hlblock);
-       $entity_table_name = $hlblock["TABLE_NAME"];
-       $sTableID = 'tbl_'.$entity_table_name;
-       $entity_data_class = $entity->getDataClass(); 
-       $resultData = $entity_data_class::getList(
-           array(
+    $hlblock = Prototype::getInstance("ClientsBonusCards");
+    
+       $resultData = $hlblock->getElements(array(
                 "select" => array("*"),
                 "filter" => array("UF_PHONE_NUMBER" => $clientInfoArr["PHONE_NUMBER"])
-           )
-       );
-       $resultData = new \CDBResult($resultData, $sTableID);
-       if ($arRes = $resultData->Fetch()) {
-           $result = $entity_data_class::update($arRes["ID"],
-               array(
-                   'UF_PHONE_NUMBER' => $clientInfoArr["PHONE_NUMBER"],
-                   'UF_TOTAL_BALANCE' => $clientInfoArr["USER_BALANCE"],
-                   'UF_TIMESTAMP_X' => time()
-               )
-           );
+           ));
+       if (!empty($resultData)) {
+           foreach ($resultData as $curResult) {
+               
+           $result = $hlblock->updateData($curResult["ID"], array(
+                       'UF_PHONE_NUMBER' => $clientInfoArr["PHONE_NUMBER"],
+                       'UF_TOTAL_BALANCE' => $clientInfoArr["USER_BALANCE"],
+                       'UF_TIMESTAMP_X' => time()
+                   ));
+           }
        } else {
-           $result = $entity_data_class::add(
-               array(
-                   'UF_PHONE_NUMBER' => $clientInfoArr["PHONE_NUMBER"],
-                   'UF_TOTAL_BALANCE' => $clientInfoArr["USER_BALANCE"],
-                   'UF_TIMESTAMP_X' => time()
-               )
-           );
+           
+           $result = $hlblock->addData(array(
+                       'UF_PHONE_NUMBER' => $clientInfoArr["PHONE_NUMBER"],
+                       'UF_TOTAL_BALANCE' => $clientInfoArr["USER_BALANCE"],
+                       'UF_TIMESTAMP_X' => time()
+                   ));
        }
     //}
-    return $result;
+    $resultId = $result->getId();
+    if ($resultId) {
+        return $resultId;
+    } else {
+        return false;
+    }
     }
 
     public function checkUpdatedClientsInfo() {
-      // if (CModule::IncludeModule('highloadblock')) {
-          $hlblockId = HLBlockClass::gettingHLBlockId("ClientsBonusCards");
-           $hlblock = HL\HighloadBlockTable::getById($hlblockId) -> fetch();
-           $entity = HL\HighloadBlockTable::compileEntity($hlblock);
-           $entity_data_class = $entity->getDataClass();
-           $entity_table_name = $hlblock["TABLE_NAME"];
-           $sTableID = 'tbl_'.$entity_table_name;
-           $resultData = $entity_data_class::getList(
-               array(
-                    "select" => array("*"),
-                    "filter" => array(">UF_TIMESTAMP_X" => time() - 86400),
-                    "limit" => 100
-               )
-           );
-           $resultData = new \CDBResult($resultData, $sTableID);
+          
+           $hlblock = Prototype::getInstance("ClientsBonusCards");
+           $resultData = $hlblock->getElements(array(
+                "select" => array("*"),
+                "filter" => array(">UF_TIMESTAMP_X" => time() - 86400),
+                "limit" => 100
+           ));
            $phonesArr = array();
-           while ($arRes = $resultData->Fetch()) {
-                $phonesArr[] = $arRes["UF_PHONE_NUMBER"];
+           foreach ($resultData as $curResult) {
+                $phonesArr[] = $curResult["UF_PHONE_NUMBER"];
            }
            foreach ($phonesArr as $phoneNumber) {
                $this->ClientsInfo($phoneNumber);
            }
-      //  } 
     }
 }
