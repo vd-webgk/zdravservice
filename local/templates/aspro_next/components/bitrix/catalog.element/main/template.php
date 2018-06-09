@@ -943,12 +943,12 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
             <?endif;?>
             <?if($arResult["DETAIL_TEXT"]):?>
                 <li class="instructions <?=(!($iTab++) ? ' active' : '')?>">
-                    <a class="instructions" href="#instructions"  data-toggle="tab"><span><?=GetMessage("INSTRUCTIONS_FOR_USE");?></span></a>
+                    <a class="instructions" href="#descr"  data-toggle="tab"><span><?=GetMessage("INSTRUCTIONS_FOR_USE");?></span></a>
                 </li>
             <?endif;?>
             <?if($arResult["DETAIL_TEXT"]):?>
                 <li class="contraindications <?=(!($iTab++) ? ' active' : '')?>">
-                    <a class="contraindications" href="#contraindications"  data-toggle="tab"><span><?=GetMessage("CONTRAINDICATIONS");?></span></a>
+                    <a class="contraindications" href="#descr"  data-toggle="tab"><span><?=GetMessage("CONTRAINDICATIONS");?></span></a>
                 </li>
             <?endif;?>
             <?if($arVideo):?>
@@ -1494,148 +1494,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                         <?endif;?>
                     </div>
                 </div>
-                <div class="tab-pane <?=(!($iTab++) ? ' active' : '')?>" id="instructions">
-                    <div class="title-tab-heading visible-xs"><?=GetMessage("INSTRUCTIONS_FOR_USE");?></div>
-                    <div>
-                        <?if(strlen($arResult["DETAIL_TEXT"])):?>
-                            <div class="detail_text2"><?=$arResult["DETAIL_TEXT"]?></div>
-                        <?endif;?>
-                        <?if($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB"):?>
-                            <div class="wraps">
-                                <hr>
-                                <h4><?=($arParams["TAB_CHAR_NAME"] ? $arParams["TAB_CHAR_NAME"] : GetMessage("PROPERTIES_TAB"));?></h4>
-                                <?if($arParams["PROPERTIES_DISPLAY_TYPE"] != "TABLE"):?>
-                                    <div class="props_block" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>">
-                                        <?foreach($arResult["PROPERTIES"] as $propCode => $arProp):?>
-                                            <?if(isset($arResult["DISPLAY_PROPERTIES"][$propCode])):?>
-                                                <?$arProp = $arResult["DISPLAY_PROPERTIES"][$propCode];?>
-                                                <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-                                                    <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
-                                                        <div class="char" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                                            <div class="char_name">
-                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
-                                                                <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                    <span itemprop="name"><?=$arProp["NAME"]?></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="char_value" itemprop="value">
-                                                                <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                    <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-                                                                <?else:?>
-                                                                    <?=$arProp["DISPLAY_VALUE"];?>
-                                                                <?endif;?>
-                                                            </div>
-                                                        </div>
-                                                    <?endif;?>
-                                                <?endif;?>
-                                            <?endif;?>
-                                        <?endforeach;?>
-                                    </div>
-                                <?else:?>
-                                    <div class="char_block">
-                                        <table class="props_list">
-                                            <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
-                                                <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-                                                    <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
-                                                        <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                                            <td class="char_name">
-                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
-                                                                <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                    <span itemprop="name"><?=$arProp["NAME"]?></span>
-                                                                </div>
-                                                            </td>
-                                                            <td class="char_value">
-                                                                <span itemprop="value">
-                                                                    <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                        <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-                                                                    <?else:?>
-                                                                        <?=$arProp["DISPLAY_VALUE"];?>
-                                                                    <?endif;?>
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    <?endif;?>
-                                                <?endif;?>
-                                            <?endforeach;?>
-                                        </table>
-                                        <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
-                                    </div>
-                                <?endif;?>
-                            </div>
-                        <?endif;?>                        
-                    </div>
-                </div>
-                <div class="tab-pane <?=(!($iTab++) ? ' active' : '')?>" id="contraindications">
-                    <div class="title-tab-heading visible-xs"><?=GetMessage("CONTRAINDICATIONS");?></div>
-                    <div>
-                        <?if(strlen($arResult["DETAIL_TEXT"])):?>
-                            <div class="detail_text3"><?=$arResult["DETAIL_TEXT"]?></div>
-                        <?endif;?>
-                        <?if($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB"):?>
-                            <div class="wraps">
-                                <hr>
-                                <h4><?=($arParams["TAB_CHAR_NAME"] ? $arParams["TAB_CHAR_NAME"] : GetMessage("PROPERTIES_TAB"));?></h4>
-                                <?if($arParams["PROPERTIES_DISPLAY_TYPE"] != "TABLE"):?>
-                                    <div class="props_block" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>">
-                                        <?foreach($arResult["PROPERTIES"] as $propCode => $arProp):?>
-                                            <?if(isset($arResult["DISPLAY_PROPERTIES"][$propCode])):?>
-                                                <?$arProp = $arResult["DISPLAY_PROPERTIES"][$propCode];?>
-                                                <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-                                                    <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
-                                                        <div class="char" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                                            <div class="char_name">
-                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
-                                                                <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                    <span itemprop="name"><?=$arProp["NAME"]?></span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="char_value" itemprop="value">
-                                                                <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                    <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-                                                                <?else:?>
-                                                                    <?=$arProp["DISPLAY_VALUE"];?>
-                                                                <?endif;?>
-                                                            </div>
-                                                        </div>
-                                                    <?endif;?>
-                                                <?endif;?>
-                                            <?endif;?>
-                                        <?endforeach;?>
-                                    </div>
-                                <?else:?>
-                                    <div class="char_block">
-                                        <table class="props_list">
-                                            <?foreach($arResult["DISPLAY_PROPERTIES"] as $arProp):?>
-                                                <?if(!in_array($arProp["CODE"], array("SERVICES", "BRAND", "HIT", "RECOMMEND", "NEW", "STOCK", "VIDEO", "VIDEO_YOUTUBE", "CML2_ARTICLE"))):?>
-                                                    <?if((!is_array($arProp["DISPLAY_VALUE"]) && strlen($arProp["DISPLAY_VALUE"])) || (is_array($arProp["DISPLAY_VALUE"]) && implode('', $arProp["DISPLAY_VALUE"]))):?>
-                                                        <tr itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue">
-                                                            <td class="char_name">
-                                                                <?if($arProp["HINT"] && $arParams["SHOW_HINTS"]=="Y"):?><div class="hint"><span class="icon"><i>?</i></span><div class="tooltip"><?=$arProp["HINT"]?></div></div><?endif;?>
-                                                                <div class="props_item <?if($arProp["HINT"] && $arParams["SHOW_HINTS"] == "Y"){?>whint<?}?>">
-                                                                    <span itemprop="name"><?=$arProp["NAME"]?></span>
-                                                                </div>
-                                                            </td>
-                                                            <td class="char_value">
-                                                                <span itemprop="value">
-                                                                    <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-                                                                        <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-                                                                    <?else:?>
-                                                                        <?=$arProp["DISPLAY_VALUE"];?>
-                                                                    <?endif;?>
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    <?endif;?>
-                                                <?endif;?>
-                                            <?endforeach;?>
-                                        </table>
-                                        <table class="props_list" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_DIV']; ?>"></table>
-                                    </div>
-                                <?endif;?>
-                            </div>
-                        <?endif;?>                        
-                    </div>
-                </div>
             <?endif;?>
             <?if($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] == "TAB"):?>
                 <div class="tab-pane <?=(!($iTab++) ? ' active' : '')?>" id="props">
@@ -1989,51 +1847,35 @@ if ($arResult['CATALOG'] && $arParams['USE_GIFTS_MAIN_PR_SECTION_LIST'] == 'Y' &
         SITE_ID: '<? echo SITE_ID; ?>'
     })
 </script>
+<script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script>
 $(document).on('ready', function(){
-    $('div .detail_text2').find('h3:contains("Способ применения и дозы")').attr('id','instructions')                               
-    $('div .detail_text3').find('h3:contains("Противопоказания")').attr('id','contraindications')                               
-    })
-    $('a.instructions').on('click', function(){
-        //get the full url - like mysitecom/index.htm#home
-        var full_url = this.href;
-        console.log(full_url);
-        //split the url by # and get the anchor target name - home in mysitecom/index.htm#home
-        var parts = full_url.split("#");
-        console.log(parts);
-        var trgt = parts[1];
-
-        //get the top offset of the target anchor
-        var target_offset = $("#"+trgt).offset();
-        console.log(target_offset);
-        var target_top = target_offset.top;
-        console.log(target_top);
-
-        //goto that anchor by setting the body scroll top to anchor top
-        $('html, body').animate({scrollTop:target_top}, 1500, 'easeInSine');
-    })
-    function scrollToAnchor(ourHref){
-    //get the full url - like mysitecom/index.htm#home
-        var full_url = ourHref.href;
-        console.log(full_url);
-        //split the url by # and get the anchor target name - home in mysitecom/index.htm#home
-        var parts = full_url.split("#");
-        console.log(parts);
-        var trgt = parts[1];
-
-        //get the top offset of the target anchor
-        var target_offset = $("#"+trgt).offset();
-        console.log(target_offset);
-        var target_top = target_offset.top;
-        console.log(target_top);
-        console.log("#"+trgt);
-
-        //goto that anchor by setting the body scroll top to anchor top
-        //$('html, body').animate({scrollTop:target_top}, 1500, 'easeInSine');
-        $('html, body').scrollTop(target_top);
-    }
-    $('a.contraindications').on('click', function(e){
-        setTimeout(scrollToAnchor(this), 2000);
-        //scrollToAnchor(this);   
-    })
+    $('div .detail_text').find('h3:contains("Способ применения и дозы")').attr('id','instructions');                              
+    $('div .detail_text').find('h3:contains("Противопоказания")').attr('id','contraindications');
+    /*$('a.instructions').on('click', function(){
+        $(body).scrollTo($("#instructions"), 1000);
+     });*/
+     $('a.instructions').on('click', function(e){
+            e.preventDefault();
+            if($('li.instructions').trigger('click')){
+            //console.log('triggered click li.instructions');
+            } 
+            var position = $('#instructions').offset().top;
+            $("body, html").animate({
+                scrollTop: position - 120
+            } /* speed */ );
+     });
+     $('a.contraindications').on('click', function(e){
+            e.preventDefault();
+            if($('li.contraindications').trigger('click')){
+            //console.log('triggered click li.contraindications');
+            }
+            var position = $('#contraindications').offset().top;
+            $("body, html").animate({
+                scrollTop: position - 120
+            } , 900 );
+     });                               
+})
+        
+   
 </script>
