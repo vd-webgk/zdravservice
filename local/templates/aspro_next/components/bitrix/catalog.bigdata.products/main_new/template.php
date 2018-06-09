@@ -4,37 +4,8 @@ $templateData = array(
 	//'TEMPLATE_THEME' => $this->GetFolder().'/themes/'.$arParams['TEMPLATE_THEME'].'/style.css',
 	'TEMPLATE_CLASS' => 'bx_'.$arParams['TEMPLATE_THEME']
 );
-$injectId = $arParams['UNIQ_COMPONENT_ID'];?>
-<?
-    $getMainElementFilter = array('ID' => $arResult['_ORIGINAL_PARAMS']['ID']); 
-    $getMainElementFields = array('PROPERTY_TOVARY_DLYA_DOPRODAZHI');
-    $getMainElement = CIBlockElement::GetList(
-        Array("SORT"=>"ASC"),
-        $getMainElementFilter,
-        false,
-        false,
-        $getMainElementFields
-    );
-    while($res = $getMainElement ->Fetch()){
-        $getBigDataElements[] = $res; 
-    }
-    $explodeBigDataElements = explode(';', $getBigDataElements[0]['PROPERTY_TOVARY_DLYA_DOPRODAZHI_VALUE']);
-    $getAditionalElementFilter = array('XML_ID' => $explodeBigDataElements); 
-    $getAditionalElementFields = array();
-    $getAditionalElement = CIBlockElement::GetList(
-        Array("SORT"=>"ASC"),
-        $getAditionalElementFilter,
-        false,
-        false,
-        $getAditionalElementFields
-    );
-    while($res = $getAditionalElement ->Fetch()){
-        $getBigDataAditionalElements[] = $res; 
-    }?>
-    <pre><?//print_r($getBigDataAditionalElements)?></pre><?
-    ?>
-    
-<?
+$injectId = $arParams['UNIQ_COMPONENT_ID'];
+
 if (isset($arResult['REQUEST_ITEMS']))
 {
 	// code to receive recommendations from the cloud
@@ -72,15 +43,12 @@ if (isset($arResult['REQUEST_ITEMS']))
 
 	// \ end of the code to receive recommendations from the cloud
 }
-if($arResult['ITEMS']){?><pre><?
-    print_r($arResult['REQUEST_ITEMS'])?></pre>
+if($arResult['ITEMS']){?>
 	<?$arResult['RID'] = ($arResult['RID'] ? $arResult['RID'] : (\Bitrix\Main\Context::getCurrent()->getRequest()->get('RID') != 'undefined' ? \Bitrix\Main\Context::getCurrent()->getRequest()->get('RID') : '' ));?>
 	<input type="hidden" name="bigdata_recommendation_id" value="<?=htmlspecialcharsbx($arResult['RID'])?>">
 	<span id="<?=$injectId?>_items" class="bigdata_recommended_products_items flexslider loading_state shadow border custom_flex top_right" data-plugin-options='{"animation": "slide", "animationSpeed": 600, "directionNav": true, "controlNav" :false, "animationLoop": true, "slideshow": false, "controlsContainer": ".tabs_slider_navigation.RECOMENDATION_nav", "counts": [4,3,3,2,1]}'>
 		<ul class="tabs_slider RECOMENDATION_slides slides catalog_block">
-            <pre><?print_r($arResult['ITEMS'])?></pre>
 			<?foreach ($arResult['ITEMS'] as $key => $arItem){?>
-                
 				<?$strMainID = $this->GetEditAreaId($arItem['ID'] . $key);?>
 				<li class="catalog_item visible" id="<?=$strMainID;?>">
 					<?
