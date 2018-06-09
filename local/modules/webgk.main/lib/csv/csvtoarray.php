@@ -11,7 +11,7 @@ use Webgk\Main\Exception;
 class CSVToArray
 {
 
-    public function CSVParse($file, $hasFieldNames = false, $delimiter = ',', $enclosure='"')
+    public function CSVParse($file, $hasFieldNames = false, $delimiter = ';', $enclosure='"')
     {
 
         $result = [];
@@ -41,7 +41,6 @@ class CSVToArray
                     $idx = $i;
                 }
 
-                // $idx = ($hasFieldNames) ? $keys[$i] : $i;
                 $res[$idx] = $row[$i];
             }
             $result[] = $res;
