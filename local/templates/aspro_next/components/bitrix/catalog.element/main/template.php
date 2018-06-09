@@ -1850,28 +1850,29 @@ if ($arResult['CATALOG'] && $arParams['USE_GIFTS_MAIN_PR_SECTION_LIST'] == 'Y' &
 <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
 <script>
 $(document).on('ready', function(){
-    $('div .detail_text').find('h3:contains("Способ применения и дозы")').attr('id','instructions');                              
-    $('div .detail_text').find('h3:contains("Противопоказания")').attr('id','contraindications');
+    $('div .detail_text').find('h3:contains("Способ применения и дозы")').attr('name','instructions');                              
+    $('div .detail_text').find('h3:contains("Противопоказания")').attr('name','contraindications');
     setTimeout(scrollyTab , 1000);
+    if($('li.product_ask_tab').hasClass('active')){
+        setTimeout(function(){
+            $('a.instructions').trigger('click');
+        }, 1000)   
+    }  
                                
 })
 function scrollyTab(){
- $('a.instructions').on('click', function(e){
+ $('a.instructions').on('click', function(e){           
             e.preventDefault();
-            if($('li.instructions').trigger('click')){
-            //console.log('triggered click li.instructions');
-            } 
-            var position = $('#instructions').offset().top;
+            var position = $('h3[name="instructions"]').offset().top;
             $("body, html").animate({
                 scrollTop: position - 120
             } /* speed */ );
+            
+            
      });
      $('a.contraindications').on('click', function(e){
             e.preventDefault();
-            if($('li.contraindications').trigger('click')){
-            //console.log('triggered click li.contraindications');
-            }
-            var position = $('#contraindications').offset().top;
+            var position = $('h3[name="contraindications"]').offset().top;
             $("body, html").animate({
                 scrollTop: position - 120
             } , 900 );
