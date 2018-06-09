@@ -1852,10 +1852,11 @@ if ($arResult['CATALOG'] && $arParams['USE_GIFTS_MAIN_PR_SECTION_LIST'] == 'Y' &
 $(document).on('ready', function(){
     $('div .detail_text').find('h3:contains("Способ применения и дозы")').attr('id','instructions');                              
     $('div .detail_text').find('h3:contains("Противопоказания")').attr('id','contraindications');
-    /*$('a.instructions').on('click', function(){
-        $(body).scrollTo($("#instructions"), 1000);
-     });*/
-     $('a.instructions').on('click', function(e){
+    setTimeout(scrollyTab , 1000);
+                               
+})
+function scrollyTab(){
+ $('a.instructions').on('click', function(e){
             e.preventDefault();
             if($('li.instructions').trigger('click')){
             //console.log('triggered click li.instructions');
@@ -1874,8 +1875,8 @@ $(document).on('ready', function(){
             $("body, html").animate({
                 scrollTop: position - 120
             } , 900 );
-     });                               
-})
+     });
+}
         
    
 </script>
