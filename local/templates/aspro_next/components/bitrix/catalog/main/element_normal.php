@@ -379,7 +379,7 @@ if($arXmlIdElements){
 					<?}else{?>
                         <?if($code=="TOVARY_DLYA_DOPRODAZHI"){
                             $iblock = \Webgk\Main\Iblock\catalog_1c\catalog::getInstance();
-                            $getBigDataAdditionalElements = $iblock -> getXmlIdProperties($arAllValues["TOVARY_DLYA_DOPRODAZHI"]);
+                            $getBigDataAdditionalElements = $iblock -> getXmlIdProperties($arAllValues["TOVARY_DLYA_DOPRODAZHI"][0]);
                             ?>
 						    <div class="flexslider loading_state shadow border custom_flex top_right" data-plugin-options='{"animation": "slide", "animationSpeed": 600, "directionNav": true, "controlNav" :false, "animationLoop": true, "slideshow": false, "controlsContainer": ".tabs_slider_navigation.<?=$code?>_nav", "counts": [4,3,3,2,1]}'>
 						    <ul class="tabs_slider <?=$code?>_slides slides">

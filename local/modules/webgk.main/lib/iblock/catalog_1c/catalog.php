@@ -9,7 +9,7 @@ class catalog extends Prototype {
     }
     public function getXmlIdProperties($getBigDataElements){
         if(!empty($getBigDataElements)){
-            $explodeBigDataElements = explode(';', $getBigDataElements[0]);
+            $explodeBigDataElements = explode(';', $getBigDataElements);
             $ourAdditionalGetElement = array(
                 "filter" => array('XML_ID' => $explodeBigDataElements),
                 "select" => array("ID"),
