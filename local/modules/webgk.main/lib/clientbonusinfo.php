@@ -116,22 +116,6 @@ class ClientBonusInfo {
     }
     
     /**
-    * получение информации по бонусам нового пользователя
-    * 
-    * @param array $arFields
-    */
-    function gettingNewClientInfo($arFields) {
-        if (Loader::includeModule("user")) {
-            $userInfo = CUser::GetByID($arFields["ID"]);
-            while ($user = $userInfo -> Fetch()) {
-                if ($user["PERSONAL_PHONE"]) {
-                    $this->ClientsInfo($user["PERSONAL_PHONE"]);
-                }
-            }
-        }
-    }
-    
-    /**
     * получение баланса пользователя по номеру телефона из БД
     * 
     * @param string $phoneNumber
@@ -141,7 +125,7 @@ class ClientBonusInfo {
             $hlblock = Prototype::getInstance("ClientsBonusCards");
             $resultData = $hlblock->getElements(array(
                 "select" => array("*"),
-                "filter" => array("UF_PHONE_NUMBER" => "+".$phoneNumber)
+                "filter" => array("UF_PHONE_NUMBER" => $phoneNumber)
             ));
             if (!empty($resultData)) {
                 $bonusBalance = $resultData[0]["UF_TOTAL_BALANCE"];
