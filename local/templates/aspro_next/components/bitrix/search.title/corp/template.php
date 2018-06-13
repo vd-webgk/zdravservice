@@ -55,3 +55,14 @@ if(isset($isFixedTopSearch) && $isFixedTopSearch)
 		'MIN_QUERY_LEN': 2
 	});
 </script>
+<script>
+                    $(document).on('ready', function(e){
+                        $( "body" ).click(function( event ) {
+                          $( "#log" ).html( "clicked: " + event.target.nodeName );
+                        });
+                        $('.to_basket_from_search').on('click', function(){
+                            console.log(1);
+                               // $(this).css('display','block')    
+                        });
+                    })
+                    </script>

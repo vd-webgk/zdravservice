@@ -62,9 +62,15 @@ CModule::IncludeModule("iblock");?>
 						<div style="clear:both;"></div>
 					</div>                 
 				</a>
-                <?if($arElement['CATALOG_QUANTITY'] > 0){?>           
+                <?if($arElement['CATALOG_QUANTITY'] > 0){
+                $getPrice = CPrice::GetBasePrice(
+                    $arElement['ID'],
+                    false,
+                    false
+                );    
+                ?>           
                     <div class="to_basket_from_search shine">
-                    <a rel="nofollow" href="/basket/">
+                    <a rel="nofollow" href="/basket/" data-value="<?=$getPrice['PRICE']?>" data-currency="<?=$getPrice['CURRENCY']?>" class="to-cart transition_bg animate-load" data-item="<?=$arElement['ID']?>" data-float_ratio="" data-ratio="1" data-bakset_div="bx_basket_div_<?=$arElement['ID']?>" data-props="" data-part_props="Y" data-add_props="Y"  data-empty_props="Y" data-offers="" data-iblockID="26"  data-quantity="1">
                         <object class="svg_basket_title shine" type="image/svg+xml" data="/local/templates/aspro_next/images/svg/Basket_title_search.svg">
                             <img src="/local/templates/aspro_next/images/svg/Basket_title_search.svg" class="svg_basket_title"/>
                         </object>
