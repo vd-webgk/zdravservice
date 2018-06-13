@@ -1,6 +1,6 @@
 <?
 namespace Webgk\Main\Iblock\catalog_1c;
-use Webgk\Main\Iblock\Prototype;
+use \Webgk\Main\Iblock\Prototype;
 use \Webgk\Main\Tools;
 class catalog extends Prototype {
     public static function getInstance()
