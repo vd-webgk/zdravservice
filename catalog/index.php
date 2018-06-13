@@ -33,12 +33,15 @@ $APPLICATION->IncludeComponent(
 			1 => "",
 		),
 		"FILTER_PROPERTY_CODE" => array(
-			0 => "CML2_ARTICLE",
-			1 => "IN_STOCK",
-			2 => "",
+			0 => "STRANA_PROIZVODITELYA",
+			1 => "DEYSTVUYUSHCHEE_VESHCHESTVO",
+			2 => "PROIZVODITEL",
+			3 => "IN_STOCK",
+			4 => "",
 		),
 		"FILTER_PRICE_CODE" => array(
 			0 => "Розничная",
+			1 => "Тульская область",
 		),
 		"FILTER_OFFERS_FIELD_CODE" => array(
 			0 => "NAME",
@@ -478,7 +481,7 @@ $APPLICATION->IncludeComponent(
 		"TITLE_PAYMENT" => "Оплата",
 		"SHOW_GARANTY" => "Y",
 		"TITLE_GARANTY" => "Условия гарантии",
-		"USE_FILTER_PRICE" => "N",
+		"USE_FILTER_PRICE" => "Y",
 		"DISPLAY_ELEMENT_COUNT" => "Y",
 		"RESTART" => "N",
 		"USE_LANGUAGE_GUESS" => "Y",
