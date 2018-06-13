@@ -35,5 +35,7 @@
 	$MESS["TITLE_QUANTITY"] = "шт.";
 	$MESS["UNTIL_AKC"] = "До конца акции";
 	$MESS["TITLE_QUANTITY_BLOCK"] = "Остаток";
-	$MESS["CATALOG_ECONOMY"] = "Экономия";
+    $MESS["CATALOG_ECONOMY"] = "Экономия";
+    $MESS["BRAND_NAME_PROP"] = "Производство:";
+	$MESS["BRAND_SUBSTANCE_PROP"] = "Действующее вещество:";
 ?>

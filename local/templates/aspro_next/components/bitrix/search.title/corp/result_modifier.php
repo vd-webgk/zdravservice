@@ -99,6 +99,7 @@ if (!empty($arResult["ELEMENTS"]) && CModule::IncludeModule("iblock"))
 		"DETAIL_PAGE_URL",
 		"ACTIVE_FROM",
 		"PROPERTY_REDIRECT",
+        'CATALOG_QUANTITY'
 	);
 	$arFilter = array(
 		"IBLOCK_LID" => SITE_ID,

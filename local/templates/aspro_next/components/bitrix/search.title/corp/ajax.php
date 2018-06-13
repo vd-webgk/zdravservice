@@ -1,5 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
-<?if (empty($arResult["CATEGORIES"])) return;?>
+<?if (empty($arResult["CATEGORIES"])) return;
+CModule::IncludeModule("iblock");?>
 <div class="bx_searche scrollbar">   
 	<?foreach($arResult["CATEGORIES"] as $category_id => $arCategory):?>
 		<?foreach($arCategory["ITEMS"] as $i => $arItem):?>
@@ -63,9 +64,11 @@
 				</a>
                 <?if($arElement['CATALOG_QUANTITY'] > 0){?>           
                     <div class="to_basket_from_search shine">
+                    <a rel="nofollow" href="/basket/">
                         <object class="svg_basket_title shine" type="image/svg+xml" data="/local/templates/aspro_next/images/svg/Basket_title_search.svg">
                             <img src="/local/templates/aspro_next/images/svg/Basket_title_search.svg" class="svg_basket_title"/>
                         </object>
+                        </a>
                     </div>
                 <?}?>                
 			<?else:?>

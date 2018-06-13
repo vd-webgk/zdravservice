@@ -448,27 +448,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 		<div class="info_item scrollbar">
 			<div class="title"><a href="<?=$arResult["DETAIL_PAGE_URL"];?>" class="dark_link"><?=$elementName;?></a></div>
 			<div class="top_info">
-				<?if($arParams["SHOW_RATING"] == "Y"):?>
-					<?$frame = $this->createFrame('dv_'.$arResult["ID"])->begin('');?>
-						<div class="rating">
-							<?$APPLICATION->IncludeComponent(
-							   "bitrix:iblock.vote",
-							   "element_rating",
-							   Array(
-								  "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-								  "IBLOCK_ID" => $arResult["IBLOCK_ID"],
-								  "ELEMENT_ID" => $arResult["ID"],
-								  "MAX_VOTE" => 5,
-								  "VOTE_NAMES" => array(),
-								  "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-								  "CACHE_TIME" => $arParams["CACHE_TIME"],
-								  "DISPLAY_AS_RATING" => 'vote_avg'
-							   ),
-							   $component, array("HIDE_ICONS" =>"Y")
-							);?>
-						</div>
-					<?$frame->end();?>
-				<?endif;?>
 				<div class="rows_block">
 					<div class="item_block">
 						<?=$arQuantityData["HTML"];?>
@@ -482,14 +461,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 						</div>
 					<?//endif;?>
 				</div>
-				<?if($arParams["SHOW_CHEAPER_FORM"] == "Y"):?>
-					<div class="quantity_block_wrapper">
-						<div class="cheaper_form">
-							<span class="animate-load" data-event="jqm" data-param-form_id="CHEAPER" data-name="cheaper" data-autoload-product_name="<?=CNext::formatJsName($arResult["NAME"]);?>" data-autoload-product_id="<?=$arResult["ID"];?>"><?=($arParams["CHEAPER_FORM_NAME"] ? $arParams["CHEAPER_FORM_NAME"] : GetMessage("CHEAPER"));?></span>
-							</div>
-						</div>
-					</div>
-				<?endif;?>
 				<div class="sku_block">
 					<?if($arResult["OFFERS"] && $showCustomOffer){?>
 						<div class="sku_props">
@@ -527,11 +498,22 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 										</td>
 										<td class="char_value">
 											<span itemprop="value">
-												<?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
-													<?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
-												<?else:?>
-													<?=$arProp["DISPLAY_VALUE"];?>
-												<?endif;?>
+                                                <?if($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {
+                                                        $arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                                        if(strripos($arProp["VALUE"], "(")){
+                                                            $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                            <span itemprop="value"><?=trim($explodeStr[0], " ")?></span>
+                                                         <?} else {?>
+                                                            <span itemprop="value"><?=$arProp["VALUE"]?></span> 
+                                                         <?}?>
+                                                <?} else {?>
+												    <?if(count($arProp["DISPLAY_VALUE"]) > 1):?>
+													    <?=implode(', ', $arProp["DISPLAY_VALUE"]);?>
+												    <?else:?>
+													    <?=$arProp["DISPLAY_VALUE"];?>
+												    <?endif;
+                                                }?>
+                                                                                               
 											</span>
 										</td>
 									</tr>

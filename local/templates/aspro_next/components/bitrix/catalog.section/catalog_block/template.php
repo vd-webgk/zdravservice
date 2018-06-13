@@ -179,25 +179,30 @@
 								<div class="item-title">
 									<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><span><?=$elementName;?></span></a>
 								</div>
-								<?if($arParams["SHOW_RATING"] == "Y"):?>
-									<div class="rating">
-										<?$APPLICATION->IncludeComponent(
-										   "bitrix:iblock.vote",
-										   "element_rating_front",
-										   Array(
-											  "IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-											  "IBLOCK_ID" => $arItem["IBLOCK_ID"],
-											  "ELEMENT_ID" =>$arItem["ID"],
-											  "MAX_VOTE" => 5,
-											  "VOTE_NAMES" => array(),
-											  "CACHE_TYPE" => $arParams["CACHE_TYPE"],
-											  "CACHE_TIME" => $arParams["CACHE_TIME"],
-											  "DISPLAY_AS_RATING" => 'vote_avg'
-										   ),
-										   $component, array("HIDE_ICONS" =>"Y")
-										);?>
-									</div>
-								<?endif;?>
+                                <div style="display: none;"><?print_r($arItem["DISPLAY_PROPERTIES"])?></div>
+                                <?if(!empty($arItem["DISPLAY_PROPERTIES"]['STRANA_PROIZVODITELYA']['VALUE']) || !empty($arItem["DISPLAY_PROPERTIES"]['DEYSTVUYUSHCHEE_VESHCHESTVO']['VALUE'])){?>
+                                    <div class="show_block_props">
+                                    <?foreach( $arItem["DISPLAY_PROPERTIES"] as $arProp ){?>
+                                        <?if($arProp['CODE'] == 'STRANA_PROIZVODITELYA'){?>
+                                            <div class="show_block_props_element">
+                                            <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
+                                            <span class="element_value"><?=$arProp["VALUE"]?></span>
+                                            </div>
+                                        <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
+                                            <div class="show_block_props_element">
+                                            <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
+                                            <?$arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                            if(strripos($arProp["VALUE"], "(")){
+                                                $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                <span class="element_value"><?=trim($explodeStr[0], " ")?></span>
+                                            <?} else {?>
+                                                <span class="element_value"><?=$arProp["VALUE"]?></span> 
+                                             <?}?>                                            
+                                            </div>
+                                        <?}?>                                      
+                                    <?}?>
+                                    </div>
+                                <?}?>
 								<div class="sa_block">
 									<?=$arQuantityData["HTML"];?>
 									<div class="article_block">
