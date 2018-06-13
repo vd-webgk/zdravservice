@@ -71,7 +71,7 @@ if(in_array($sViewElementTemplate, $arWidePage))
 <?CNext::checkBreadcrumbsChain($arParams, $arSection, $arElement);?>
 <div class="clearfix"></div>
 
-<?$arAllValues=$arSimilar=$arAccessories=array();
+<?$arAllValues=$arSimilar=$arAccessories=$arXmlIdElements=array();
 $arShowTabs = array("element_1", "element_2");
 if(!in_array($sViewElementTemplate, $arWidePage)):
 /*similar goods*/
@@ -80,21 +80,28 @@ if($arExpValues){
 	$arAllValues["EXPANDABLES"]=$arExpValues;
 }
 /*accessories goods*/
-$arAccessories=CNextCache::CIBlockElement_GetProperty($arParams["IBLOCK_ID"], $ElementID, array("CACHE" => array("TAG" =>CNextCache::GetIBlockCacheTag($arParams["IBLOCK_ID"]))), array("CODE" => "ASSOCIATED"));
+/*$arAccessories=CNextCache::CIBlockElement_GetProperty($arParams["IBLOCK_ID"], $ElementID, array("CACHE" => array("TAG" =>CNextCache::GetIBlockCacheTag($arParams["IBLOCK_ID"]))), array("CODE" => "ASSOCIATED"));
 if($arAccessories){
-	$arAllValues["ASSOCIATED"]=$arAccessories;
+    $arAllValues["ASSOCIATED"]=$arAccessories;
+} */
+$arXmlIdElements=CNextCache::CIBlockElement_GetProperty($arParams["IBLOCK_ID"], $ElementID, array("CACHE" => array("TAG" =>CNextCache::GetIBlockCacheTag($arParams["IBLOCK_ID"]))), array("CODE" => "TOVARY_DLYA_DOPRODAZHI"));
+if($arXmlIdElements){
+	$arAllValues["TOVARY_DLYA_DOPRODAZHI"]=$arXmlIdElements;
 }
 ?>
 
-<?if($arAccessories || $arExpValues || (ModuleManager::isModuleInstalled("sale") && (!isset($arParams['USE_BIG_DATA']) || $arParams['USE_BIG_DATA'] != 'N'))){?>
+<?if($arXmlIdElements || $arAccessories || $arExpValues || (ModuleManager::isModuleInstalled("sale") && (!isset($arParams['USE_BIG_DATA']) || $arParams['USE_BIG_DATA'] != 'N'))){?>
 	<?$bViewBlock = ($arParams["VIEW_BLOCK_TYPE"] == "Y");?>
 	<?
 	$arTab=array();
 	if($arExpValues){
 		$arTab["EXPANDABLES"]=($arParams["DETAIL_EXPANDABLES_TITLE"] ? $arParams["DETAIL_EXPANDABLES_TITLE"] : GetMessage("EXPANDABLES_TITLE"));
 	}
-	if($arAccessories){
-		$arTab["ASSOCIATED"]=( $arParams["DETAIL_ASSOCIATED_TITLE"] ? $arParams["DETAIL_ASSOCIATED_TITLE"] : GetMessage("ASSOCIATED_TITLE"));
+	/*if($arAccessories){
+        $arTab["ASSOCIATED"]=( $arParams["DETAIL_ASSOCIATED_TITLE"] ? $arParams["DETAIL_ASSOCIATED_TITLE"] : GetMessage("ASSOCIATED_TITLE"));
+    }*/
+    if($arXmlIdElements){
+		$arTab["TOVARY_DLYA_DOPRODAZHI"]=(GetMessage("TOVARY_DLYA_DOPRODAZHI_TITLE"));
 	}
 	/* Start Big Data */
 	if(ModuleManager::isModuleInstalled("sale") && (!isset($arParams['USE_BIG_DATA']) || $arParams['USE_BIG_DATA'] != 'N'))
@@ -370,32 +377,9 @@ if($arAccessories){
 						);
 						?>
 					<?}else{?>
-                        <?if($code=="ASSOCIATED"){
-                            $getMainElementFilter = array('ID' => $arResult['_ORIGINAL_PARAMS']['ID']); 
-                            $getMainElementFields = array('PROPERTY_TOVARY_DLYA_DOPRODAZHI');
-                            $getMainElement = CIBlockElement::GetList(
-                                Array("SORT"=>"ASC"),
-                                $getMainElementFilter,
-                                false,
-                                false,
-                                $getMainElementFields
-                            );
-                            while($res = $getMainElement ->Fetch()){
-                                $getBigDataElements[] = $res; 
-                            }
-                            $explodeBigDataElements = explode(';', $getBigDataElements[0]['PROPERTY_TOVARY_DLYA_DOPRODAZHI_VALUE']);
-                            $getAdditionalElementFilter = array('XML_ID' => $explodeBigDataElements); 
-                            $getAdditionalElementFields = array('ID');
-                            $getAdditionalElement = CIBlockElement::GetList(
-                                Array("SORT"=>"ASC"),
-                                $getAditionalElementFilter,
-                                false,
-                                false,
-                                $getAdditionalElementFields
-                            );
-                            while($res = $getAdditionalElement ->Fetch()){
-                                $getBigDataAdditionalElements[] = $res['ID']; 
-                            }
+                        <?if($code=="TOVARY_DLYA_DOPRODAZHI"){
+                            $iblock = \Webgk\Main\Iblock\catalog_1c\catalog::getInstance();
+                            $getBigDataAdditionalElements = $iblock -> getXmlIdProperties($arAllValues["TOVARY_DLYA_DOPRODAZHI"]);
                             ?>
 						    <div class="flexslider loading_state shadow border custom_flex top_right" data-plugin-options='{"animation": "slide", "animationSpeed": 600, "directionNav": true, "controlNav" :false, "animationLoop": true, "slideshow": false, "controlsContainer": ".tabs_slider_navigation.<?=$code?>_nav", "counts": [4,3,3,2,1]}'>
 						    <ul class="tabs_slider <?=$code?>_slides slides">
