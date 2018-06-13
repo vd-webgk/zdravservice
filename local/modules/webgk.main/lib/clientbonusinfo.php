@@ -9,6 +9,11 @@ use Bitrix\Main\Option;
 use Webgk\Main\Hlblock\Prototype; 
 class ClientBonusInfo {
     
+    /**
+    * получение бонусного баланса клиента и добавление/обновление соответствующей записи HL-блока
+    * 
+    * @param string $phoneNumber
+    */
     public function ClientsInfo($phoneNumber = ""){
         $curl = curl_init();
     if (!empty($phoneNumber)) {
@@ -16,9 +21,9 @@ class ClientBonusInfo {
     } else {
         return false;
     }
-    $url = \COption::GetOptionString("grain.customsettings", "url"); 
-    $login = \COption::GetOptionString("grain.customsettings", "login");
-    $password = \COption::GetOptionString("grain.customsettings", "password");
+    $url = \COption::GetOptionString("grain.customsettings", "ws_bonus_url"); 
+    $login = \COption::GetOptionString("grain.customsettings", "ws_bonus_login");
+    $password = \COption::GetOptionString("grain.customsettings", "ws_bonus_password");
     curl_setopt_array($curl, [
         CURLOPT_RETURNTRANSFER => 1, //1 - возврат результата в виде строки, 0 - вывод результата в браузер
         CURLOPT_URL => $url, //урл для запроса
@@ -78,6 +83,11 @@ class ClientBonusInfo {
     }
     }
 
+    /**
+    * обновление записей HL-блока бонусов, 
+    * последнее добавление/обновление которых было произведено в течение последних суток
+    * 
+    */
     public function checkUpdatedClientsInfo() {
           
            $hlblock = Prototype::getInstance("ClientsBonusCards");
@@ -95,12 +105,21 @@ class ClientBonusInfo {
            }
     }
     
+    /**
+    * запуск агента, обновляющего записи HL-блока информации о бонусах
+    * 
+    */
     function gettingClientsInfoAgent() {
         if ($this->checkUpdatedClientsInfo) {
-            return "gettingClientsInfoAgent();";
+            return "\\Webgk\\Main\\ClientBonusInfo::gettingClientsInfoAgent();";
         }    
     }
     
+    /**
+    * получение информации по бонусам нового пользователя
+    * 
+    * @param array $arFields
+    */
     function gettingNewClientInfo($arFields) {
         if (Loader::includeModule("user")) {
             $userInfo = CUser::GetByID($arFields["ID"]);
@@ -108,6 +127,27 @@ class ClientBonusInfo {
                 if ($user["PERSONAL_PHONE"]) {
                     $this->ClientsInfo($user["PERSONAL_PHONE"]);
                 }
+            }
+        }
+    }
+    
+    /**
+    * получение баланса пользователя по номеру телефона из БД
+    * 
+    * @param string $phoneNumber
+    */
+    function gettingUserBalanceFromDB($phoneNumber) {
+        if (!empty($phoneNumber)) {
+            $hlblock = Prototype::getInstance("ClientsBonusCards");
+            $resultData = $hlblock->getElements(array(
+                "select" => array("*"),
+                "filter" => array("UF_PHONE_NUMBER" => "+".$phoneNumber)
+            ));
+            if (!empty($resultData)) {
+                $bonusBalance = $resultData[0]["UF_TOTAL_BALANCE"];
+            }
+            if (!empty($bonusBalance)) {
+                return $bonusBalance;
             }
         }
     }
