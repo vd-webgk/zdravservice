@@ -35,8 +35,8 @@ $APPLICATION->IncludeComponent(
 		"FILTER_PROPERTY_CODE" => array(
 			0 => "STRANA_PROIZVODITELYA",
 			1 => "DEYSTVUYUSHCHEE_VESHCHESTVO",
-			2 => "PROIZVODITEL",
-			3 => "IN_STOCK",
+			2 => "IN_STOCK",
+			3 => "PROIZVODITEL",
 			4 => "",
 		),
 		"FILTER_PRICE_CODE" => array(
@@ -481,7 +481,7 @@ $APPLICATION->IncludeComponent(
 		"TITLE_PAYMENT" => "Оплата",
 		"SHOW_GARANTY" => "Y",
 		"TITLE_GARANTY" => "Условия гарантии",
-		"USE_FILTER_PRICE" => "Y",
+		"USE_FILTER_PRICE" => "N",
 		"DISPLAY_ELEMENT_COUNT" => "Y",
 		"RESTART" => "N",
 		"USE_LANGUAGE_GUESS" => "Y",
@@ -505,7 +505,7 @@ $APPLICATION->IncludeComponent(
 			"section" => "#SECTION_CODE_PATH#/",
 			"element" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
 			"compare" => "compare.php?action=#ACTION_CODE#",
-			"smart_filter" => "#SECTION_ID#/filter/#SMART_FILTER_PATH#/apply/",
+			"smart_filter" => "#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/",
 		),
 		"VARIABLE_ALIASES" => array(
 			"compare" => array(
