@@ -384,22 +384,22 @@ if($arAccessories){
                                 $getBigDataElements[] = $res; 
                             }
                             $explodeBigDataElements = explode(';', $getBigDataElements[0]['PROPERTY_TOVARY_DLYA_DOPRODAZHI_VALUE']);
-                            $getAditionalElementFilter = array('XML_ID' => $explodeBigDataElements); 
-                            $getAditionalElementFields = array();
-                            $getAditionalElement = CIBlockElement::GetList(
+                            $getAdditionalElementFilter = array('XML_ID' => $explodeBigDataElements); 
+                            $getAdditionalElementFields = array('ID');
+                            $getAdditionalElement = CIBlockElement::GetList(
                                 Array("SORT"=>"ASC"),
                                 $getAditionalElementFilter,
                                 false,
                                 false,
-                                $getAditionalElementFields
+                                $getAdditionalElementFields
                             );
-                            while($res = $getAditionalElement ->Fetch()){
-                                $getBigDataAditionalElements[] = $res['ID']; 
+                            while($res = $getAdditionalElement ->Fetch()){
+                                $getBigDataAdditionalElements[] = $res['ID']; 
                             }
                             ?>
 						    <div class="flexslider loading_state shadow border custom_flex top_right" data-plugin-options='{"animation": "slide", "animationSpeed": 600, "directionNav": true, "controlNav" :false, "animationLoop": true, "slideshow": false, "controlsContainer": ".tabs_slider_navigation.<?=$code?>_nav", "counts": [4,3,3,2,1]}'>
 						    <ul class="tabs_slider <?=$code?>_slides slides">
-							    <?$GLOBALS['arrFilter'.$code] = array( "ID" => $getBigDataAditionalElements );
+							    <?$GLOBALS['arrFilter'.$code] = array( "ID" => $getBigDataAdditionalElements );
                                 $APPLICATION->IncludeComponent(
                                 "bitrix:catalog.top",
                                 "main",
