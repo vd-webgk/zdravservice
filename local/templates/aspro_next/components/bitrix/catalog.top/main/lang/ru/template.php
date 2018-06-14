@@ -26,4 +26,6 @@
 	$MESS["TITLE_BLOCK"] = "Лучшие предложения";
 	$MESS["CATALOG_ECONOMY"] = "Экономия";
 	$MESS["NO_ITEMS"] = "Товаров нет";
+    $MESS["BRAND_NAME_PROP"] = "Производство:";
+    $MESS["BRAND_SUBSTANCE_PROP"] = "Действующее вещество:";
 ?>
