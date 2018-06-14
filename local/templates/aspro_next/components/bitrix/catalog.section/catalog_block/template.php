@@ -10,7 +10,6 @@
 			<div class="catalog_block items block_list">
 	<?}?>
 		<?
-       // \Webgk\Main\Tools::arshow($arResult['ITEMS']) ;
 		$currencyList = '';
 		if (!empty($arResult['CURRENCIES'])){
 			$templateLibrary[] = 'currency';
@@ -234,8 +233,7 @@
                                         }                                     
                                     }?>
                                     </div>
-                                <?}
-                                    
+                                <?}                                    
                                 }?>
 								<div class="cost prices clearfix">
 									<?if( $arItem["OFFERS"]){?>
