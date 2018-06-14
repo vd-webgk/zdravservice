@@ -33,12 +33,15 @@ $APPLICATION->IncludeComponent(
 			1 => "",
 		),
 		"FILTER_PROPERTY_CODE" => array(
-			0 => "CML2_ARTICLE",
-			1 => "IN_STOCK",
-			2 => "",
+			0 => "STRANA_PROIZVODITELYA",
+			1 => "DEYSTVUYUSHCHEE_VESHCHESTVO",
+			2 => "IN_STOCK",
+			3 => "PROIZVODITEL",
+			4 => "",
 		),
 		"FILTER_PRICE_CODE" => array(
 			0 => "Розничная",
+			1 => "Тульская область",
 		),
 		"FILTER_OFFERS_FIELD_CODE" => array(
 			0 => "NAME",
@@ -506,7 +509,7 @@ $APPLICATION->IncludeComponent(
 			"section" => "#SECTION_CODE_PATH#/",
 			"element" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
 			"compare" => "compare.php?action=#ACTION_CODE#",
-			"smart_filter" => "#SECTION_ID#/filter/#SMART_FILTER_PATH#/apply/",
+			"smart_filter" => "#SECTION_CODE_PATH#/filter/#SMART_FILTER_PATH#/apply/",
 		),
 		"VARIABLE_ALIASES" => array(
 			"compare" => array(
