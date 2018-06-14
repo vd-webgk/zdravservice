@@ -42,11 +42,11 @@ foreach($arResult["ITEMS"] as $key => $arItem)
 	}
 }
 
- $getIBlock = CIBlockElement::GetList(Array(), Array("IBLOCK_TYPE"=>"catalog_1c", "IBLOCK_ID" => 26), false, false, array("ID", "IBLOCK_ID"));
-    if($get346prop = $getIBlock->GetNextElement())
-    {   
-        $prop346 = $get346prop->GetProperties(array("ID" => "ASC"), array('CODE' => 'DEYSTVUYUSHCHEE_VESHCHESTVO'));
-    } 
+$getIBlock = CIBlockElement::GetList(Array(), Array("IBLOCK_TYPE"=>"catalog_1c", "IBLOCK_ID" => 26), false, false, array("ID", "IBLOCK_ID"));
+if($get346prop = $getIBlock->GetNextElement())
+{   
+    $prop346 = $get346prop->GetProperties(array("ID" => "ASC"), array('CODE' => 'DEYSTVUYUSHCHEE_VESHCHESTVO'));
+} 
 foreach($arResult["ITEMS"][$prop346['DEYSTVUYUSHCHEE_VESHCHESTVO']['ID']]['VALUES'] as  $key => $property346){
     $property346["VALUE"] = str_replace("*", "", $property346["VALUE"]);
     if(strripos($property346["VALUE"], "(")){
