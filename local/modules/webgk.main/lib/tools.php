@@ -171,5 +171,20 @@ Class Tools {
 
         return round($bytes, $precision) . ' ' . $types[$i];
     }
+    
+    /*
+    *Форматирование свойства "Действующее вещество" от '*', '(' 
+    */
+    public static function explodeProperty($valueToExplode){
+        if(!empty($valueToExplode)){
+            $explodeThis["VALUE"] = $valueToExplode;
+            $explodeThis["VALUE"] = str_replace("*", "", $explodeThis["VALUE"]);
+                if(strripos($explodeThis["VALUE"], "(")){
+                    $explodeThis["VALUE"] = explode('(', $explodeThis["VALUE"]);
+                    $explodeThis["VALUE"] = trim($explodeThis["VALUE"][0], " ");
+                }
+            return $explodeThis["VALUE"]; 
+        }
+    }
 
 }
