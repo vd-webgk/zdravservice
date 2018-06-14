@@ -15,3 +15,8 @@
     display: flex;
     z-index: 53;
 }
+.element_prescription{
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
