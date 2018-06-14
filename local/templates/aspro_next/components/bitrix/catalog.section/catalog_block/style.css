@@ -3,3 +3,6 @@ font-size: 12px;
 line-height: 18px;
 height: 72px;
 }
+.bottom_nav.block {
+    top: 50px !important;
+}

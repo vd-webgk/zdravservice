@@ -10,6 +10,7 @@
 			<div class="catalog_block items block_list">
 	<?}?>
 		<?
+       // \Webgk\Main\Tools::arshow($arResult['ITEMS']) ;
 		$currencyList = '';
 		if (!empty($arResult['CURRENCIES'])){
 			$templateLibrary[] = 'currency';
@@ -175,42 +176,67 @@
 								</a>
 								<div class="fast_view_block" data-event="jqm" data-param-form_id="fast_view" data-param-iblock_id="<?=$arParams["IBLOCK_ID"];?>" data-param-id="<?=$arItem["ID"];?>" data-param-item_href="<?=urlencode($arItem["DETAIL_PAGE_URL"]);?>" data-name="fast_view"><?=$fast_view_text;?></div>
 							</div>
+                            
 							<div class="item_info <?=$arParams["TYPE_SKU"]?>">
 								<div class="item-title">
 									<a href="<?=$arItem["DETAIL_PAGE_URL"]?>" class="dark_link"><span><?=$elementName;?></span></a>
-								</div>
-                                <div style="display: none;"><?print_r($arItem["DISPLAY_PROPERTIES"])?></div>
+								</div> 
                                 <?if(!empty($arItem["DISPLAY_PROPERTIES"]['STRANA_PROIZVODITELYA']['VALUE']) || !empty($arItem["DISPLAY_PROPERTIES"]['DEYSTVUYUSHCHEE_VESHCHESTVO']['VALUE'])){?>
                                     <div class="show_block_props">
                                     <?foreach( $arItem["DISPLAY_PROPERTIES"] as $arProp ){?>
-                                        <?if($arProp['CODE'] == 'STRANA_PROIZVODITELYA'){?>
-                                            <div class="show_block_props_element">
-                                            <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
-                                            <span class="element_value"><?=$arProp["VALUE"]?></span>
-                                            </div>
-                                        <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
-                                            <div class="show_block_props_element">
-                                            <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
-                                            <?$arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
-                                            if(strripos($arProp["VALUE"], "(")){
-                                                $explodeStr = explode('(',$arProp["VALUE"]);?>
-                                                <span class="element_value"><?=trim($explodeStr[0], " ")?></span>
-                                            <?} else {?>
-                                                <span class="element_value"><?=$arProp["VALUE"]?></span> 
-                                             <?}?>                                            
-                                            </div>
+                                        <?if($arProp['CODE'] == 'STRANA_PROIZVODITELYA'){
+                                            if(!empty($arProp["VALUE"])){?>
+                                                <div class="show_block_props_element">
+                                                <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
+                                                <span class="element_value"><?=$arProp["VALUE"]?></span>
+                                                </div>
+                                            <?}?>
+                                        <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {
+                                                if(!empty($arProp["VALUE"])){?>
+                                                    <div class="show_block_props_element">
+                                                    <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
+                                                    <?$arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                                    if(strripos($arProp["VALUE"], "(")){
+                                                        $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                        <span class="element_value"><?=trim($explodeStr[0], " ")?></span>
+                                                    <?} else {?>
+                                                        <span class="element_value"><?=$arProp["VALUE"]?></span> 
+                                                     <?}?>                                            
+                                                    </div>
+                                                <?}?>
                                         <?}?>                                      
                                     <?}?>
                                     </div>
-                                <?}?>
-								<div class="sa_block">
-									<?=$arQuantityData["HTML"];?>
-									<div class="article_block">
-										<?if(isset($arItem['ARTICLE']) && $arItem['ARTICLE']['VALUE']){?>
-											<?=$arItem['ARTICLE']['NAME'];?>: <?=$arItem['ARTICLE']['VALUE'];?>
-										<?}?>
-									</div>
-								</div>
+                                <?} else {
+                                    if(empty($arItem["DISPLAY_PROPERTIES"]) && !empty($arItem["PROPERTIES"])){?>
+                                    <div class="show_block_props">
+                                    <?foreach( $arItem["PROPERTIES"] as $arProp ){                          
+                                        if($arProp['CODE'] == 'STRANA_PROIZVODITELYA'){
+                                            if(!empty($arProp["VALUE"])){?>
+                                                <div class="show_block_props_element">
+                                                <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
+                                                <span class="element_value"><?=$arProp["VALUE"]?></span>
+                                                </div>
+                                            <?}?>
+                                        <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {
+                                            if(!empty($arProp["VALUE"])){?>
+                                                <div class="show_block_props_element">
+                                                <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
+                                                <?$arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
+                                                if(strripos($arProp["VALUE"], "(")){
+                                                    $explodeStr = explode('(',$arProp["VALUE"]);?>
+                                                    <span class="element_value"><?=trim($explodeStr[0], " ")?></span>
+                                                <?} else {?>
+                                                    <span class="element_value"><?=$arProp["VALUE"]?></span> 
+                                                 <?}?>                                            
+                                                </div>
+                                            <?}
+                                        }                                     
+                                    }?>
+                                    </div>
+                                <?}
+                                    
+                                }?>
 								<div class="cost prices clearfix">
 									<?if( $arItem["OFFERS"]){?>
 										<div class="with_matrix <?=($arParams["SHOW_OLD_PRICE"]=="Y" ? 'with_old' : '');?>" style="display:none;">
