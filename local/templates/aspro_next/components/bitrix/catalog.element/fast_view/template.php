@@ -449,6 +449,9 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 			<div class="title"><a href="<?=$arResult["DETAIL_PAGE_URL"];?>" class="dark_link"><?=$elementName;?></a></div>
 			<div class="top_info">
 				<div class="rows_block">
+					<div class="item_block">
+						<?=$arQuantityData["HTML"];?>
+					</div>
 					<?//if($arResult["ARTICLE"]):?>
 						<div class="item_block">
 							<div class="article iblock" itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue" <?if($arResult['SHOW_OFFERS_PROPS']){?>id="<? echo $arItemIDs["ALL_ITEM_IDS"]['DISPLAY_PROP_ARTICLE_DIV'] ?>" style="display: none;"<?}?>>
