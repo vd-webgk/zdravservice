@@ -78,6 +78,7 @@ $MESS["OFFER_PRICES"] = "Цены";
 $MESS["SKU_PRODUCT_NAME"] = "Наименование";
 $MESS["EXPANDABLES_TITLE"] = "Аксессуары";
 $MESS["ASSOCIATED_TITLE"] = "Похожие товары";
+$MESS["TOVARY_DLYA_DOPRODAZHI_TITLE"] = "C этим товаром покупают";
 $MESS["GROUP_PARTS_TITLE"] = "Состав комплекта";
 $MESS["CATALOG_SUBSCRIBE"] = "Подписаться";
 $MESS["CATALOG_IN_SUBSCRIBE"] = "Отписаться";
