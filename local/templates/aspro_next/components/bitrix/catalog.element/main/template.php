@@ -1941,19 +1941,21 @@ $(document).on('ready', function(){
 function scrollyTab(){
  $('a.instructions').on('click', function(e){           
             e.preventDefault();
+            $('.tab-content .tab-pane#descr').addClass('active');
             var position = $('h3[name="instructions"]').offset().top;
             $("body, html").animate({
                 scrollTop: position - 120
-            } /* speed */ );
+            }, 900 );
             
             
      });
      $('a.contraindications').on('click', function(e){
             e.preventDefault();
+            $('.tab-content .tab-pane#descr').addClass('active');
             var position = $('h3[name="contraindications"]').offset().top;
             $("body, html").animate({
                 scrollTop: position - 120
-            } , 900 );
+            }, 900 );
      });
 }
         
