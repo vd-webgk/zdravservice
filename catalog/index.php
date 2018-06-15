@@ -312,7 +312,7 @@ $APPLICATION->IncludeComponent(
 		"OFFER_TREE_PROPS" => array(
 			0 => "STRANA_PROIZVODITELYA",
 		),
-		"USE_BIG_DATA" => "Y",
+		"USE_BIG_DATA" => "N",
 		"BIG_DATA_RCM_TYPE" => "any_similar",
 		"SHOW_DISCOUNT_PERCENT" => "Y",
 		"SHOW_OLD_PRICE" => "Y",
@@ -331,7 +331,7 @@ $APPLICATION->IncludeComponent(
 		"PAGER_BASE_LINK_ENABLE" => "N",
 		"SHOW_404" => "Y",
 		"MESSAGE_404" => "",
-		"AJAX_FILTER_CATALOG" => "Y",
+		"AJAX_FILTER_CATALOG" => "N",
 		"SECTION_BACKGROUND_IMAGE" => "-",
 		"DETAIL_BACKGROUND_IMAGE" => "-",
 		"DISPLAY_ELEMENT_SLIDER" => "10",

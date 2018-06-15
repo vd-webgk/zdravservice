@@ -149,156 +149,193 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 <meta itemprop="category" content="<?=$arResult['CATEGORY_PATH']?>" />
 <meta itemprop="description" content="<?=(strlen(strip_tags($arResult['PREVIEW_TEXT'])) ? strip_tags($arResult['PREVIEW_TEXT']) : (strlen(strip_tags($arResult['DETAIL_TEXT'])) ? strip_tags($arResult['DETAIL_TEXT']) : $name))?>" />
 <div class="item_main_info <?=(!$showCustomOffer ? "noffer" : "");?> <?=($arParams["SHOW_UNABLE_SKU_PROPS"] != "N" ? "show_un_props" : "unshow_un_props");?>" id="<?=$arItemIDs["strMainID"];?>">
+	<div class="img_wrapper swipeignore">
+		<div class="stickers">
+			<?$prop = ($arParams["STIKERS_PROP"] ? $arParams["STIKERS_PROP"] : "HIT");?>
+			<?foreach(CNext::GetItemStickers($arResult["PROPERTIES"][$prop]) as $arSticker):?>
+				<div><div class="<?=$arSticker['CLASS']?>"><?=$arSticker['VALUE']?></div></div>
+			<?endforeach;?>
+			<?if($arParams["SALE_STIKER"] && $arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
+				<div><div class="sticker_sale_text"><?=$arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
+			<?}?>
+		</div>
+		<div class="item_slider">
+			<?if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
+				<div class="like_wrapper">
+					<?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
+						<div class="like_icons iblock">
+							<?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
+								<?if(!$arResult["OFFERS"]):?>
+									<div class="wish_item text" <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>">
+										<span class="value" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>" ><i></i></span>
+										<span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
+									</div>
+								<?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !empty($arResult['OFFERS_PROP'])):?>
+									<div class="wish_item text " <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" <?=(!empty($arResult['OFFERS_PROP']) ? 'data-offers="Y"' : '');?> data-props="<?=$arOfferProps?>">
+										<span class="value <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>"><i></i></span>
+										<span class="value added <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
+									</div>
+								<?endif;?>
+							<?endif;?>
+							<?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
+								<?if(!$arResult["OFFERS"] || ($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !$arResult["OFFERS_PROP"])):?>
+									<div data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=($arResult["OFFERS"] ? $arParams["TYPE_SKU"] : "");?>" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['COMPARE_LINK']; ?>">
+										<span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
+										<span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
+									</div>
+								<?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1'):?>
+									<div data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=$arParams["TYPE_SKU"];?>">
+										<span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
+										<span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
+									</div>
+								<?endif;?>
+							<?endif;?>
+						</div>
+					<?endif;?>
+				</div>
+			<?endif;?>
 
-    <div class="img_wrapper swipeignore">
-        <div class="stickers">
-            <?$prop = ($arParams["STIKERS_PROP"] ? $arParams["STIKERS_PROP"] : "HIT");?>
-            <?foreach(CNext::GetItemStickers($arResult["PROPERTIES"][$prop]) as $arSticker):?>
-                <div><div class="<?=$arSticker['CLASS']?>"><?=$arSticker['VALUE']?></div></div>
-            <?endforeach;?>
-            <?if($arParams["SALE_STIKER"] && $arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"]){?>
-                <div><div class="sticker_sale_text"><?=$arResult["PROPERTIES"][$arParams["SALE_STIKER"]]["VALUE"];?></div></div>
-            <?}?>
-        </div>
-        <div class="item_slider">
-            <?reset($arResult['MORE_PHOTO']);
-            $arFirstPhoto = current($arResult['MORE_PHOTO']);
-            $viewImgType=$arParams["DETAIL_PICTURE_MODE"];?>
-            <div class="slides">
-                <?if($showCustomOffer && !empty($arResult['OFFERS_PROP'])){?>
-                    <div class="offers_img wof">
-                        <?$alt=$arFirstPhoto["ALT"];
-                        $title=$arFirstPhoto["TITLE"];?>
-                        <?if($arFirstPhoto["BIG"]["src"]){?>
-                            <a href="<?=($viewImgType=="POPUP" ? $arFirstPhoto["BIG"]["src"] : "javascript:void(0)");?>" class="<?=($viewImgType=="POPUP" ? "popup_link" : "line_link");?>" title="<?=$title;?>">
-                                <img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?=$arFirstPhoto['SMALL']['src']; ?>" <?=($viewImgType=="MAGNIFIER" ? 'data-large="" xpreview="" xoriginal=""': "");?> alt="<?=$alt;?>" title="<?=$title;?>" itemprop="image">
-                                <div class="zoom"></div>
-                            </a>
-                        <?}else{?>
-                            <a href="javascript:void(0)" class="" title="<?=$title;?>">
-                                <img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?=$arFirstPhoto['SRC']; ?>" alt="<?=$alt;?>" title="<?=$title;?>" itemprop="image">
-                                <div class="zoom"></div>
-                            </a>
-                        <?}?>
-                    </div>
-                <?}else{
-                    if($arResult["MORE_PHOTO"]){
-                        $bMagnifier = ($viewImgType=="MAGNIFIER");?>
-                        <ul>
-                            <?foreach($arResult["MORE_PHOTO"] as $i => $arImage){
-                                if($i && $bMagnifier):?>
-                                    <?continue;?>
-                                <?endif;?>
-                                <?$isEmpty=($arImage["SMALL"]["src"] ? false : true );?>
-                                <?
-                                $alt=$arImage["ALT"];
-                                $title=$arImage["TITLE"];
-                                ?>
-                                <li id="photo-<?=$i?>" <?=(!$i ? 'class="current"' : 'style="display: none;"')?>>
-                                    <?if(!$isEmpty){?>
-                                        <a href="<?=($viewImgType=="POPUP" ? $arImage["BIG"]["src"] : "javascript:void(0)");?>" <?=($bIsOneImage ? '' : 'data-fancybox-group="item_slider"')?> class="<?=($viewImgType=="POPUP" ? "popup_link fancy" : "line_link");?>" title="<?=$title;?>">
-                                            <img  src="<?=$arImage["SMALL"]["src"]?>" <?=($viewImgType=="MAGNIFIER" ? "class='zoom_picture'" : "");?> <?=($viewImgType=="MAGNIFIER" ? 'xoriginal="'.$arImage["BIG"]["src"].'" xpreview="'.$arImage["THUMB"]["src"].'"' : "");?> alt="<?=$alt;?>" title="<?=$title;?>"<?=(!$i ? ' itemprop="image"' : '')?>/>
-                                            <div class="zoom"></div>
-                                        </a>
-                                    <?}else{?>
-                                        <img  src="<?=$arImage["SRC"]?>" alt="<?=$alt;?>" title="<?=$title;?>" />
-                                    <?}?>
-                                </li>
-                            <?}?>
-                        </ul>
-                    <?}
-                }?>
-            </div>
-            <?/*thumbs*/?>
-            <?if(!$showCustomOffer || empty($arResult['OFFERS_PROP'])){
-                if(count($arResult["MORE_PHOTO"]) > 1):?>
-                    <div class="wrapp_thumbs xzoom-thumbs">
-                        <div class="thumbs flexslider" data-plugin-options='{"animation": "slide", "selector": ".slides_block > li", "directionNav": true, "itemMargin":10, "itemWidth": 54, "controlsContainer": ".thumbs_navigation", "controlNav" :false, "animationLoop": true, "slideshow": false}' style="max-width:<?=ceil(((count($arResult['MORE_PHOTO']) <= 4 ? count($arResult['MORE_PHOTO']) : 4) * 64) - 10)?>px;">
-                            <ul class="slides_block" id="thumbs">
-                                <?foreach($arResult["MORE_PHOTO"]as $i => $arImage):?>
-                                    <li <?=(!$i ? 'class="current"' : '')?> data-big_img="<?=$arImage["BIG"]["src"]?>" data-small_img="<?=$arImage["SMALL"]["src"]?>">
-                                        <span><img class="xzoom-gallery" width="50" xpreview="<?=$arImage["THUMB"]["src"];?>" src="<?=$arImage["THUMB"]["src"]?>" alt="<?=$arImage["ALT"];?>" title="<?=$arImage["TITLE"];?>" /></span>
-                                    </li>
-                                <?endforeach;?>
-                            </ul>
-                            <span class="thumbs_navigation custom_flex"></span>
-                        </div>
-                    </div>
-                    <script>
-                        $(document).ready(function(){
-                            $('.item_slider .thumbs li').first().addClass('current');
-                            $('.item_slider .thumbs .slides_block').delegate('li:not(.current)', 'click', function(){
-                                var slider_wrapper = $(this).parents('.item_slider'),
-                                    index = $(this).index();
-                                $(this).addClass('current').siblings().removeClass('current')//.parents('.item_slider').find('.slides li').fadeOut(333);
-                                if(arNextOptions['THEME']['DETAIL_PICTURE_MODE'] == 'MAGNIFIER')
-                                {
-                                    var li = $(this).parents('.item_slider').find('.slides li');
-                                    li.find('img').attr('src', $(this).data('small_img'));
-                                    li.find('img').attr('xoriginal', $(this).data('big_img'));
-                                }
-                                else
-                                {
-                                    slider_wrapper.find('.slides li').removeClass('current').hide();
-                                    slider_wrapper.find('.slides li:eq('+index+')').addClass('current').show();
-                                }
-                            });
-                        })
-                    </script>
-                <?endif;?>
-            <?}else{?>
-                <div class="wrapp_thumbs">
-                    <div class="sliders">
-                        <div class="thumbs" style="">
-                        </div>
-                    </div>
-                </div>
-            <?}?>
-        </div>
-        <?/*mobile*/?>
-        <?if(!$showCustomOffer || empty($arResult['OFFERS_PROP'])){?>
-            <div class="item_slider color-controls flex flexslider" data-plugin-options='{"animation": "slide", "directionNav": false, "controlNav": true, "animationLoop": false, "slideshow": false, "slideshowSpeed": 10000, "animationSpeed": 600}'>
-                <ul class="slides">
-                    <?if($arResult["MORE_PHOTO"]){
-                        foreach($arResult["MORE_PHOTO"] as $i => $arImage){?>
-                            <?$isEmpty=($arImage["SMALL"]["src"] ? false : true );?>
-                            <li id="mphoto-<?=$i?>" <?=(!$i ? 'class="current"' : 'style="display: none;"')?>>
-                                <?
-                                $alt=$arImage["ALT"];
-                                $title=$arImage["TITLE"];
-                                ?>
-                                <?if(!$isEmpty){?>
-                                    <a href="<?=$arImage["BIG"]["src"]?>" data-fancybox-group="item_slider_flex" class="fancy popup_link" title="<?=$title;?>" >
-                                        <img src="<?=$arImage["SMALL"]["src"]?>" alt="<?=$alt;?>" title="<?=$title;?>" />
-                                        <div class="zoom"></div>
-                                    </a>
-                                <?}else{?>
-                                    <img  src="<?=$arImage["SRC"];?>" alt="<?=$alt;?>" title="<?=$title;?>" />
-                                <?}?>
-                            </li>
-                        <?}
-                    }?>
-                </ul>
-            </div>
-        <?}else{?>
-            <div class="item_slider flex color-controls"></div>
-        <?}?>
-    </div>
-    <div class="right_info">
-        <div class="info_item">
-            <div class="element_prescription">
+			<?reset($arResult['MORE_PHOTO']);
+			$arFirstPhoto = current($arResult['MORE_PHOTO']);
+			$viewImgType=$arParams["DETAIL_PICTURE_MODE"];?>
+			<div class="slides">
+				<?if($showCustomOffer && !empty($arResult['OFFERS_PROP'])){?>
+					<div class="offers_img wof">
+						<?$alt=$arFirstPhoto["ALT"];
+						$title=$arFirstPhoto["TITLE"];?>
+						<?if($arFirstPhoto["BIG"]["src"]){?>
+							<a href="<?=($viewImgType=="POPUP" ? $arFirstPhoto["BIG"]["src"] : "javascript:void(0)");?>" class="<?=($viewImgType=="POPUP" ? "popup_link" : "line_link");?>" title="<?=$title;?>">
+								<img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?=$arFirstPhoto['SMALL']['src']; ?>" <?=($viewImgType=="MAGNIFIER" ? 'data-large="" xpreview="" xoriginal=""': "");?> alt="<?=$alt;?>" title="<?=$title;?>" itemprop="image">
+								<div class="zoom"></div>
+							</a>
+						<?}else{?>
+							<a href="javascript:void(0)" class="" title="<?=$title;?>">
+								<img id="<? echo $arItemIDs["ALL_ITEM_IDS"]['PICT']; ?>" src="<?=$arFirstPhoto['SRC']; ?>" alt="<?=$alt;?>" title="<?=$title;?>" itemprop="image">
+								<div class="zoom"></div>
+							</a>
+						<?}?>
+					</div>
+				<?}else{
+					if($arResult["MORE_PHOTO"]){
+						$bMagnifier = ($viewImgType=="MAGNIFIER");?>
+						<ul>
+							<?foreach($arResult["MORE_PHOTO"] as $i => $arImage){
+								if($i && $bMagnifier):?>
+									<?continue;?>
+								<?endif;?>
+								<?$isEmpty=($arImage["SMALL"]["src"] ? false : true );?>
+								<?
+								$alt=$arImage["ALT"];
+								$title=$arImage["TITLE"];
+								?>
+								<li id="photo-<?=$i?>" <?=(!$i ? 'class="current"' : 'style="display: none;"')?>>
+									<?if(!$isEmpty){?>
+										<a href="<?=($viewImgType=="POPUP" ? $arImage["BIG"]["src"] : "javascript:void(0)");?>" <?=($bIsOneImage ? '' : 'data-fancybox-group="item_slider"')?> class="<?=($viewImgType=="POPUP" ? "popup_link fancy" : "line_link");?>" title="<?=$title;?>">
+											<img  src="<?=$arImage["SMALL"]["src"]?>" <?=($viewImgType=="MAGNIFIER" ? "class='zoom_picture'" : "");?> <?=($viewImgType=="MAGNIFIER" ? 'xoriginal="'.$arImage["BIG"]["src"].'" xpreview="'.$arImage["THUMB"]["src"].'"' : "");?> alt="<?=$alt;?>" title="<?=$title;?>"<?=(!$i ? ' itemprop="image"' : '')?>/>
+											<div class="zoom"></div>
+										</a>
+									<?}else{?>
+										<img  src="<?=$arImage["SRC"]?>" alt="<?=$alt;?>" title="<?=$title;?>" />
+									<?}?>
+								</li>
+							<?}?>
+						</ul>
+					<?}
+				}?>
+			</div>
+			<?/*thumbs*/?>
+			<?if(!$showCustomOffer || empty($arResult['OFFERS_PROP'])){
+				if(count($arResult["MORE_PHOTO"]) > 1):?>
+					<div class="wrapp_thumbs xzoom-thumbs">
+						<div class="thumbs flexslider" data-plugin-options='{"animation": "slide", "selector": ".slides_block > li", "directionNav": true, "itemMargin":10, "itemWidth": 54, "controlsContainer": ".thumbs_navigation", "controlNav" :false, "animationLoop": true, "slideshow": false}' style="max-width:<?=ceil(((count($arResult['MORE_PHOTO']) <= 4 ? count($arResult['MORE_PHOTO']) : 4) * 64) - 10)?>px;">
+							<ul class="slides_block" id="thumbs">
+								<?foreach($arResult["MORE_PHOTO"]as $i => $arImage):?>
+									<li <?=(!$i ? 'class="current"' : '')?> data-big_img="<?=$arImage["BIG"]["src"]?>" data-small_img="<?=$arImage["SMALL"]["src"]?>">
+										<span><img class="xzoom-gallery" width="50" xpreview="<?=$arImage["THUMB"]["src"];?>" src="<?=$arImage["THUMB"]["src"]?>" alt="<?=$arImage["ALT"];?>" title="<?=$arImage["TITLE"];?>" /></span>
+									</li>
+								<?endforeach;?>
+							</ul>
+							<span class="thumbs_navigation custom_flex"></span>
+						</div>
+					</div>
+					<script>
+						$(document).ready(function(){
+							$('.item_slider .thumbs li').first().addClass('current');
+							$('.item_slider .thumbs .slides_block').delegate('li:not(.current)', 'click', function(){
+								var slider_wrapper = $(this).parents('.item_slider'),
+									index = $(this).index();
+								$(this).addClass('current').siblings().removeClass('current')//.parents('.item_slider').find('.slides li').fadeOut(333);
+								if(arNextOptions['THEME']['DETAIL_PICTURE_MODE'] == 'MAGNIFIER')
+								{
+									var li = $(this).parents('.item_slider').find('.slides li');
+									li.find('img').attr('src', $(this).data('small_img'));
+									li.find('img').attr('xoriginal', $(this).data('big_img'));
+								}
+								else
+								{
+									slider_wrapper.find('.slides li').removeClass('current').hide();
+									slider_wrapper.find('.slides li:eq('+index+')').addClass('current').show();
+								}
+							});
+						})
+					</script>
+				<?endif;?>
+			<?}else{?>
+				<div class="wrapp_thumbs">
+					<div class="sliders">
+						<div class="thumbs" style="">
+						</div>
+					</div>
+				</div>
+			<?}?>
+		</div>
+		<?/*mobile*/?>
+		<?if(!$showCustomOffer || empty($arResult['OFFERS_PROP'])){?>
+			<div class="item_slider color-controls flex flexslider" data-plugin-options='{"animation": "slide", "directionNav": false, "controlNav": true, "animationLoop": false, "slideshow": false, "slideshowSpeed": 10000, "animationSpeed": 600}'>
+				<ul class="slides">
+					<?if($arResult["MORE_PHOTO"]){
+						foreach($arResult["MORE_PHOTO"] as $i => $arImage){?>
+							<?$isEmpty=($arImage["SMALL"]["src"] ? false : true );?>
+							<li id="mphoto-<?=$i?>" <?=(!$i ? 'class="current"' : 'style="display: none;"')?>>
+								<?
+								$alt=$arImage["ALT"];
+								$title=$arImage["TITLE"];
+								?>
+								<?if(!$isEmpty){?>
+									<a href="<?=$arImage["BIG"]["src"]?>" data-fancybox-group="item_slider_flex" class="fancy popup_link" title="<?=$title;?>" >
+										<img src="<?=$arImage["SMALL"]["src"]?>" alt="<?=$alt;?>" title="<?=$title;?>" />
+										<div class="zoom"></div>
+									</a>
+								<?}else{?>
+									<img  src="<?=$arImage["SRC"];?>" alt="<?=$alt;?>" title="<?=$title;?>" />
+								<?}?>
+							</li>
+						<?}
+					}?>
+				</ul>
+			</div>
+		<?}else{?>
+			<div class="item_slider flex color-controls"></div>
+		<?}?>
+	</div>
+	<div class="right_info">
+		<div class="info_item">
+           <div class="element_prescription">
                 <?foreach($arResult['PROPERTIES'] as $elementProperty){
-                    if($elementProperty['CODE'] == 'RETSEPTURNYY_PREDYAVLENIE'){?>
-                        <span><?$elementProperty['VALUE']?></span>
-                    <?}
+                    if($elementProperty['CODE'] == 'RETSEPTURNYY_PREDYAVLENIE'){
+                        if(!empty($elementProperty['VALUE'])){?>
+                            <span><?=GetMessage('PROPERTY_RECIPE')?></span>
+                        <?} else {
+                            if($elementProperty['CODE'] == 'RETSEPTURNYY_KHRANENIE'){
+                                if(!empty($elementProperty['VALUE'])){?>
+                                    <span><?=GetMessage('PROPERTY_RECIPE')?></span>
+                                <?}    
+                            }
+                        }   
+                    }
                 }?>
-            </div>
-
-
-            
-            
+            </div>    
 			<?$isArticle=(strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer));?>
-
 			<?if($isArticle || $arResult["BRAND_ITEM"] || $arParams["SHOW_RATING"] == "Y" || strlen($arResult["PREVIEW_TEXT"]) || $arResult["DISPLAY_PROPERTIES"]){?>
 				<div class="top_info">
 					<div class="rows_block">
@@ -654,116 +691,82 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 				</div>
 			</div>
 		</div>
-        <div class="clearfix"></div>
-        <div class="like_wrapper">
-            <?if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
-                <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
-                    <div class="like_icons iblock">
-                        <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
-                            <?if(!$arResult["OFFERS"]):?>
-                                <div class="wish_item text" <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>">
-                                    <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>" ><i></i></span>
-                                    <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
-                                </div>
-                            <?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !empty($arResult['OFFERS_PROP'])):?>
-                                <div class="wish_item text " <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" <?=(!empty($arResult['OFFERS_PROP']) ? 'data-offers="Y"' : '');?> data-props="<?=$arOfferProps?>">
-                                    <span class="value <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>"><i></i></span>
-                                    <span class="value added <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
-                                </div>
-                            <?endif;?>
-                        <?endif;?>
-                        <?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
-                            <?if(!$arResult["OFFERS"] || ($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !$arResult["OFFERS_PROP"])):?>
-                                <div data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=($arResult["OFFERS"] ? $arParams["TYPE_SKU"] : "");?>" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['COMPARE_LINK']; ?>">
-                                    <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
-                                    <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
-                                </div>
-                            <?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1'):?>
-                                <div data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=$arParams["TYPE_SKU"];?>">
-                                    <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
-                                    <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
-                                </div>
-                            <?endif;?>
-                        <?endif;?>
-                    </div>
-                <?endif;?><?endif?>
-                </div>
-            
-    </div>
-    <?$bPriceCount = ($arParams['USE_PRICE_COUNT'] == 'Y');?>
-    <?if($arResult['OFFERS']):?>
-        <span itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" style="display:none;">
-            <meta itemprop="offerCount" content="<?=count($arResult['OFFERS'])?>" />
-            <meta itemprop="lowPrice" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'] )?>" />
-            <meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
-            <?foreach($arResult['OFFERS'] as $arOffer):?>
-                <?$currentOffersList = array();?>
-                <?foreach($arOffer['TREE'] as $propName => $skuId):?>
-                    <?$propId = (int)substr($propName, 5);?>
-                    <?foreach($arResult['SKU_PROPS'] as $prop):?>
-                        <?if($prop['ID'] == $propId):?>
-                            <?foreach($prop['VALUES'] as $propId => $propValue):?>
-                                <?if($propId == $skuId):?>
-                                    <?$currentOffersList[] = $propValue['NAME'];?>
-                                    <?break;?>
-                                <?endif;?>
-                            <?endforeach;?>
-                        <?endif;?>
-                    <?endforeach;?>
-                <?endforeach;?>
-                <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                    <meta itemprop="sku" content="<?=implode('/', $currentOffersList)?>" />
-                    <a href="<?=$arOffer['DETAIL_PAGE_URL']?>" itemprop="url"></a>
-                    <meta itemprop="price" content="<?=($arOffer['MIN_PRICE']['DISCOUNT_VALUE']) ? $arOffer['MIN_PRICE']['DISCOUNT_VALUE'] : $arOffer['MIN_PRICE']['VALUE']?>" />
-                    <meta itemprop="priceCurrency" content="<?=$arOffer['MIN_PRICE']['CURRENCY']?>" />
-                    <link itemprop="availability" href="http://schema.org/<?=($arOffer['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
-                </span>
-            <?endforeach;?>
-        </span>
-        <?unset($arOffer, $currentOffersList);?>
-    <?else:?>
-        <?if(!$bPriceCount):?>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                <meta itemprop="price" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'])?>" />
-                <meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
-                <link itemprop="availability" href="http://schema.org/<?=($arResult['MIN_PRICE']['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
-            </span>
-        <?endif;?>
-    <?endif;?>
-    <div class="clearleft"></div>
-    <?if($arResult["TIZERS_ITEMS"]){?>
-        <div class="tizers_block_detail tizers_block">
-            <div class="row">
-                <?$count_t_items=count($arResult["TIZERS_ITEMS"]);?>
-                <?foreach($arResult["TIZERS_ITEMS"] as $arItem){?>
-                    <div class="col-md-3 col-sm-3 col-xs-6">
-                        <div class="inner_wrapper item">
-                            <?if($arItem["UF_FILE"]){?>
-                                <div class="img">
-                                    <?if($arItem["UF_LINK"]){?>
-                                        <a href="<?=$arItem["UF_LINK"];?>" <?=(strpos($arItem["UF_LINK"], "http") !== false ? "target='_blank' rel='nofollow'" : '')?>>
-                                    <?}?>
-                                    <img src="<?=$arItem["PREVIEW_PICTURE"]["src"];?>" alt="<?=$arItem["UF_NAME"];?>" title="<?=$arItem["UF_NAME"];?>">
-                                    <?if($arItem["UF_LINK"]){?>
-                                        </a>
-                                    <?}?>
-                                </div>
-                            <?}?>
-                            <div class="title">
-                                <?if($arItem["UF_LINK"]){?>
-                                    <a href="<?=$arItem["UF_LINK"];?>" <?=(strpos($arItem["UF_LINK"], "http") !== false ? "target='_blank' rel='nofollow'" : '')?>>
-                                <?}?>
-                                <?=$arItem["UF_NAME"];?>
-                                <?if($arItem["UF_LINK"]){?>
-                                    </a>
-                                <?}?>
-                            </div>
-                        </div>
-                    </div>
-                <?}?>
-            </div>
-        </div>
-    <?}?>
+        <div class="clearfix"></div>    
+	</div>
+	<?$bPriceCount = ($arParams['USE_PRICE_COUNT'] == 'Y');?>
+	<?if($arResult['OFFERS']):?>
+		<span itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" style="display:none;">
+			<meta itemprop="offerCount" content="<?=count($arResult['OFFERS'])?>" />
+			<meta itemprop="lowPrice" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'] )?>" />
+			<meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
+			<?foreach($arResult['OFFERS'] as $arOffer):?>
+				<?$currentOffersList = array();?>
+				<?foreach($arOffer['TREE'] as $propName => $skuId):?>
+					<?$propId = (int)substr($propName, 5);?>
+					<?foreach($arResult['SKU_PROPS'] as $prop):?>
+						<?if($prop['ID'] == $propId):?>
+							<?foreach($prop['VALUES'] as $propId => $propValue):?>
+								<?if($propId == $skuId):?>
+									<?$currentOffersList[] = $propValue['NAME'];?>
+									<?break;?>
+								<?endif;?>
+							<?endforeach;?>
+						<?endif;?>
+					<?endforeach;?>
+				<?endforeach;?>
+				<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+					<meta itemprop="sku" content="<?=implode('/', $currentOffersList)?>" />
+					<a href="<?=$arOffer['DETAIL_PAGE_URL']?>" itemprop="url"></a>
+					<meta itemprop="price" content="<?=($arOffer['MIN_PRICE']['DISCOUNT_VALUE']) ? $arOffer['MIN_PRICE']['DISCOUNT_VALUE'] : $arOffer['MIN_PRICE']['VALUE']?>" />
+					<meta itemprop="priceCurrency" content="<?=$arOffer['MIN_PRICE']['CURRENCY']?>" />
+					<link itemprop="availability" href="http://schema.org/<?=($arOffer['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
+				</span>
+			<?endforeach;?>
+		</span>
+		<?unset($arOffer, $currentOffersList);?>
+	<?else:?>
+		<?if(!$bPriceCount):?>
+			<span itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+				<meta itemprop="price" content="<?=($arResult['MIN_PRICE']['DISCOUNT_VALUE'] ? $arResult['MIN_PRICE']['DISCOUNT_VALUE'] : $arResult['MIN_PRICE']['VALUE'])?>" />
+				<meta itemprop="priceCurrency" content="<?=$arResult['MIN_PRICE']['CURRENCY']?>" />
+				<link itemprop="availability" href="http://schema.org/<?=($arResult['MIN_PRICE']['CAN_BUY'] ? 'InStock' : 'OutOfStock')?>" />
+			</span>
+		<?endif;?>
+	<?endif;?>
+	<div class="clearleft"></div>
+	<?if($arResult["TIZERS_ITEMS"]){?>
+		<div class="tizers_block_detail tizers_block">
+			<div class="row">
+				<?$count_t_items=count($arResult["TIZERS_ITEMS"]);?>
+				<?foreach($arResult["TIZERS_ITEMS"] as $arItem){?>
+					<div class="col-md-3 col-sm-3 col-xs-6">
+						<div class="inner_wrapper item">
+							<?if($arItem["UF_FILE"]){?>
+								<div class="img">
+									<?if($arItem["UF_LINK"]){?>
+										<a href="<?=$arItem["UF_LINK"];?>" <?=(strpos($arItem["UF_LINK"], "http") !== false ? "target='_blank' rel='nofollow'" : '')?>>
+									<?}?>
+									<img src="<?=$arItem["PREVIEW_PICTURE"]["src"];?>" alt="<?=$arItem["UF_NAME"];?>" title="<?=$arItem["UF_NAME"];?>">
+									<?if($arItem["UF_LINK"]){?>
+										</a>
+									<?}?>
+								</div>
+							<?}?>
+							<div class="title">
+								<?if($arItem["UF_LINK"]){?>
+									<a href="<?=$arItem["UF_LINK"];?>" <?=(strpos($arItem["UF_LINK"], "http") !== false ? "target='_blank' rel='nofollow'" : '')?>>
+								<?}?>
+								<?=$arItem["UF_NAME"];?>
+								<?if($arItem["UF_LINK"]){?>
+									</a>
+								<?}?>
+							</div>
+						</div>
+					</div>
+				<?}?>
+			</div>
+		</div>
+	<?}?>
 
     <?if($arParams["SHOW_KIT_PARTS"] == "Y" && $arResult["SET_ITEMS"]):?>
         <div class="set_wrapp set_block">
