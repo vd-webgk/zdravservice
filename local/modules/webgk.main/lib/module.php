@@ -29,7 +29,7 @@ class Module {
         // $eventManager->addEventHandler("iblock", "OnAfterIBlockElementUpdate", ["\\Webgk\\Tools\\catalog\\CatalogSortProperties", "setSortProperties"]);
         // $eventManager->addEventHandler("iblock", "OnAfterIBlockElementAdd", ["\\Webgk\\Tools\\catalog\\CatalogSortProperties", "setSortProperties"]);
         $eventManager->addEventHandler("main", "OnBeforeUserUpdate", ['\\Webgk\\Main\\Tools', 'updateUserPhone']);
-        $eventManager->addEventHandler("main", "OnAfterUserRegister", ['\\Webgk\\Main\\Tools', 'updateUserPhone']);
+        $eventManager->addEventHandler("main", "OnBeforeUserRegister", ['\\Webgk\\Main\\Tools', 'updateUserPhone']);
         $eventManager->addEventHandler("main", "OnAfterUserRegister",  ['\\Webgk\\Main\\Tools', 'gettingNewClientInfo']);
         $eventManager->addEventHandler("main", "OnAfterUserUpdate",  ['\\Webgk\\Main\\Tools', 'gettingNewClientInfo']);
     }
