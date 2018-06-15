@@ -317,11 +317,19 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 	</div>
 	<div class="right_info">
 		<div class="info_item">
-            <div class="element_prescription">
+           <div class="element_prescription">
                 <?foreach($arResult['PROPERTIES'] as $elementProperty){
-                    if($elementProperty['CODE'] == 'RETSEPTURNYY_PREDYAVLENIE'){?>
-                        <span><?$elementProperty['VALUE']?></span>
-                    <?}
+                    if($elementProperty['CODE'] == 'RETSEPTURNYY_PREDYAVLENIE'){
+                        if(!empty($elementProperty['VALUE'])){?>
+                            <span><?=GetMessage('PROPERTY_RECIPE')?></span>
+                        <?} else {
+                            if($elementProperty['CODE'] == 'RETSEPTURNYY_KHRANENIE'){
+                                if(!empty($elementProperty['VALUE'])){?>
+                                    <span><?=GetMessage('PROPERTY_RECIPE')?></span>
+                                <?}    
+                            }
+                        }   
+                    }
                 }?>
             </div>
             

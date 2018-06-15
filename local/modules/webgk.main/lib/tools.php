@@ -207,5 +207,20 @@ Class Tools {
             }
         }
     }
+    
+        /*
+    *Форматирование свойства "Действующее вещество" от '*', '(' 
+    */
+    public static function explodeProperty($valueToExplode){
+        if(!empty($valueToExplode)){
+            $explodeThis = $valueToExplode;
+            $explodeThis = str_replace("*", "", $explodeThis);
+                if(strripos($explodeThis, "(")){
+                    $explodeThis = explode('(', $explodeThis);
+                    $explodeThis = trim($explodeThis[0], " ");
+                }
+            return $explodeThis; 
+        }
+    }
 
 }
