@@ -1,6 +1,6 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 $this->setFrameMode(true);
-use \Bitrix\Main\Localization\Loc;
+use \Bitrix\Main\Localization\Loc; 
 if($arResult["ITEMS"]){?>
 	<div class="bx_filter bx_filter_vertical">
 		<div class="bx_filter_section">
