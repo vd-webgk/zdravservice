@@ -172,6 +172,38 @@ Class Tools {
         return round($bytes, $precision) . ' ' . $types[$i];
     }
     
+    public static function updateUserPhone(&$arFields) {
+        $userPhone = "";
+        if (isset($arFields["PERSONAL_PHONE"])) {
+            $userPhone = $arFields["PERSONAL_PHONE"];
+            if (strlen($userPhone) > 0) {
+                $userPhone = preg_replace("/\D/", "", $userPhone);
+                if (strlen($userPhone) == 11) {
+                    if (substr($userPhone, 0, 1) == "8") {
+                        $userPhone = substr_replace($userPhone, "7", 0, 1);
+                    }
+                    $userPhone = "+".$userPhone;    
+                }
+            }
+            $arFields["PERSONAL_PHONE"] = $userPhone;
+        }                                         
+    }
+    
+    /**
+    * получение информации по бонусам нового пользователя
+    * 
+    * @param array $arFields
+    */
+    function gettingNewClientInfo($arFields) {
+        $userInfo = \CUser::GetByID($arFields["ID"]);
+        while ($user = $userInfo -> Fetch()) {
+            if ($user["PERSONAL_PHONE"]) {
+                ClientBonusInfo::ClientsInfo($user["PERSONAL_PHONE"]);
+            }
+        }
+    }
+    
+    
     /*
     *Форматирование свойства "Действующее вещество" от '*', '(' 
     */
