@@ -177,13 +177,13 @@ Class Tools {
     */
     public static function explodeProperty($valueToExplode){
         if(!empty($valueToExplode)){
-            $explodeThis["VALUE"] = $valueToExplode;
-            $explodeThis["VALUE"] = str_replace("*", "", $explodeThis["VALUE"]);
-                if(strripos($explodeThis["VALUE"], "(")){
-                    $explodeThis["VALUE"] = explode('(', $explodeThis["VALUE"]);
-                    $explodeThis["VALUE"] = trim($explodeThis["VALUE"][0], " ");
+            $explodeThis = $valueToExplode;
+            $explodeThis = str_replace("*", "", $explodeThis);
+                if(strripos($explodeThis, "(")){
+                    $explodeThis = explode('(', $explodeThis);
+                    $explodeThis = trim($explodeThis[0], " ");
                 }
-            return $explodeThis["VALUE"]; 
+            return $explodeThis; 
         }
     }
 
