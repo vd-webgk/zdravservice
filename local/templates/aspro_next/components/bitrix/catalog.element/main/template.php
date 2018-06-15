@@ -161,41 +161,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
             <?}?>
         </div>
         <div class="item_slider">
-            <?/*if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
-                <div class="like_wrapper">
-                    <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y"):?>
-                        <div class="like_icons iblock">
-                            <?if($arParams["DISPLAY_WISH_BUTTONS"] != "N"):?>
-                                <?if(!$arResult["OFFERS"]):?>
-                                    <div class="wish_item text" <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>">
-                                        <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>" ><i></i></span>
-                                        <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
-                                    </div>
-                                <?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !empty($arResult['OFFERS_PROP'])):?>
-                                    <div class="wish_item text " <?=($arAddToBasketData['CAN_BUY'] ? '' : 'style="display:none"');?> data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" <?=(!empty($arResult['OFFERS_PROP']) ? 'data-offers="Y"' : '');?> data-props="<?=$arOfferProps?>">
-                                        <span class="value <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB')?>"><i></i></span>
-                                        <span class="value added <?=$arParams["TYPE_SKU"];?>" title="<?=GetMessage('CT_BCE_CATALOG_IZB_ADDED')?>"><i></i></span>
-                                    </div>
-                                <?endif;?>
-                            <?endif;?>
-                            <?if($arParams["DISPLAY_COMPARE"] == "Y"):?>
-                                <?if(!$arResult["OFFERS"] || ($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1' && !$arResult["OFFERS_PROP"])):?>
-                                    <div data-item="<?=$arResult["ID"]?>" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=($arResult["OFFERS"] ? $arParams["TYPE_SKU"] : "");?>" id="<? echo $arItemIDs["ALL_ITEM_IDS"]['COMPARE_LINK']; ?>">
-                                        <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
-                                        <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
-                                    </div>
-                                <?elseif($arResult["OFFERS"] && $arParams["TYPE_SKU"] === 'TYPE_1'):?>
-                                    <div data-item="" data-iblock="<?=$arResult["IBLOCK_ID"]?>" data-href="<?=$arResult["COMPARE_URL"]?>" class="compare_item text <?=$arParams["TYPE_SKU"];?>">
-                                        <span class="value" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE')?>"><i></i></span>
-                                        <span class="value added" title="<?=GetMessage('CT_BCE_CATALOG_COMPARE_ADDED')?>"><i></i></span>
-                                    </div>
-                                <?endif;?>
-                            <?endif;?>
-                        </div>
-                    <?endif;?>
-                </div>
-            <?endif;*/?>
-
             <?reset($arResult['MORE_PHOTO']);
             $arFirstPhoto = current($arResult['MORE_PHOTO']);
             $viewImgType=$arParams["DETAIL_PICTURE_MODE"];?>
@@ -689,35 +654,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
 				</div>
 			</div>
 		</div>
-        <?/*if(!empty($arResult['PROPERTIES'])){?>
-
-            <div class="right_side_property">
-            <?
-            foreach($arResult['PROPERTIES'] as $elementProperty){
-                 if(!empty($elementProperty['VALUE'])){?>             
-                    <div class="property_<?=$elementProperty['ID']?>">
-                    <?if($elementProperty['CODE'] == 'STRANA_PROIZVODITELYA'){?>      
-                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
-                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
-                    <?}?>
-                    <?if($elementProperty['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO'){?>      
-                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
-                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
-                    <?}?>
-                    <?if($elementProperty['CODE'] == 'FORMA_VYPUSKA'){?>      
-                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
-                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
-                    <?}?>
-                    <?if($elementProperty['CODE'] == 'PROIZVODITEL'){?>      
-                        <span class="property_name"><?=$elementProperty['NAME']?>:</span>
-                        <span class="property_value"><?=$elementProperty['VALUE']?></span>
-                    <?}?>
-                    </div>
-                  <?}?>          
-            <?}
-            ?>
-            </div>
-        <?}*/?>
         <div class="clearfix"></div>
         <div class="like_wrapper">
             <?if(($arParams["DISPLAY_WISH_BUTTONS"] != "N" || $arParams["DISPLAY_COMPARE"] == "Y") || (strlen($arResult["DISPLAY_PROPERTIES"]["CML2_ARTICLE"]["VALUE"]) || ($arResult['SHOW_OFFERS_PROPS'] && $showCustomOffer))):?>
@@ -1009,11 +945,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
         <ul class="nav nav-tabs">
             <?$iTab = 0;?>
             <?$instr_prop = ($arParams["DETAIL_DOCS_PROP"] ? $arParams["DETAIL_DOCS_PROP"] : "INSTRUCTIONS");?>
-            <?/*if($arResult["OFFERS"] && $arParams["TYPE_SKU"]=="N"):?>
-                <li class="prices_tab<?=(!($iTab++) ? ' active' : '')?>">
-                    <a href="#prices_offer" data-toggle="tab"><span><?=($arParams["TAB_OFFERS_NAME"] ? $arParams["TAB_OFFERS_NAME"] : GetMessage("OFFER_PRICES"));?></span></a>
-                </li>
-            <?endif;*/?>
             <?if($arResult["DETAIL_TEXT"] || $arResult['ADDITIONAL_GALLERY'] || count($arResult["SERVICES"]) || ((count($arResult["PROPERTIES"][$instr_prop]["VALUE"]) && is_array($arResult["PROPERTIES"][$instr_prop]["VALUE"])) || count($arResult["SECTION_FULL"]["UF_FILES"])) || ($showProps && $arParams["PROPERTIES_DISPLAY_LOCATION"] != "TAB")):?>
                 <li class="<?=(!($iTab++) ? ' active' : '')?>">
                     <a href="#descr" data-toggle="tab"><span><?=($arParams["TAB_DESCR_NAME"] ? $arParams["TAB_DESCR_NAME"] : GetMessage("DESCRIPTION_TAB"));?></span></a>
@@ -1039,26 +970,11 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     </a>
                 </li>
             <?endif;?>
-            <?/*if($arParams["USE_REVIEW"] == "Y"):?>
-                <li class="product_reviews_tab<?=(!($iTab++) ? ' active' : '')?>">
-                    <a href="#review" data-toggle="tab"><span><?=($arParams["TAB_REVIEW_NAME"] ? $arParams["TAB_REVIEW_NAME"] : GetMessage("REVIEW_TAB"))?></span><span class="count empty"></span></a>
-                </li>
-            <?endif;*/?>
             <?if(($arParams["SHOW_ASK_BLOCK"] == "Y") && (intVal($arParams["ASK_FORM_ID"]))):?>
                 <li class="product_ask_tab <?=(!($iTab++) ? ' active' : '')?>">
                     <a href="#ask" data-toggle="tab"><span><?=($arParams["TAB_FAQ_NAME"] ? $arParams["TAB_FAQ_NAME"] : GetMessage('ASK_TAB'))?></span></a>
                 </li>
             <?endif;?>
-            <?/*if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
-                <li class="stores_tab<?=(!($iTab++) ? ' active' : '')?>">
-                    <a href="#stores" data-toggle="tab"><span><?=($arParams["TAB_STOCK_NAME"] ? $arParams["TAB_STOCK_NAME"] : GetMessage("STORES_TAB"));?></span></a>
-                </li>
-            <?endif;*/?>
-            <?/*if($arParams["SHOW_ADDITIONAL_TAB"] == "Y"):?>
-                <li class="<?=(!($iTab++) ? ' active' : '')?>">
-                    <a href="#dops" data-toggle="tab"><span><?=($arParams["TAB_DOPS_NAME"] ? $arParams["TAB_DOPS_NAME"] : GetMessage("ADDITIONAL_TAB"));?></span></a>
-                </li>
-            <?endif;*/?>
         </ul>
         <div class="tab-content">
             <?$show_tabs = false;?>
@@ -1665,9 +1581,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     </div>
                 </div>
             <?endif;?>
-            <?/*if($arParams["USE_REVIEW"] == "Y"):?>
-                <div class="tab-pane <?=(!($iTab++) ? 'active' : '')?>" id="review"></div>
-            <?endif;*/?>
             <?if(($arParams["SHOW_ASK_BLOCK"] == "Y") && (intVal($arParams["ASK_FORM_ID"]))):?>
                 <div class="tab-pane<?=(!($iTab++) ? ' acive' : '')?>" id="ask">
                     <div class="title-tab-heading visible-xs"><?=($arParams["TAB_FAQ_NAME"] ? $arParams["TAB_FAQ_NAME"] : GetMessage('ASK_TAB'))?></div>
@@ -1681,51 +1594,6 @@ setViewedProduct(<?=$arResult['ID']?>, <?=CUtil::PhpToJSObject($arViewedData, fa
                     </div>
                 </div>
             <?endif;?>
-            <?/*if($useStores && ($showCustomOffer || !$arResult["OFFERS"] )):?>
-                <div class="tab-pane stores_tab<?=(!($iTab++) ? ' active' : '')?>" id="stores">
-                    <div class="title-tab-heading visible-xs"><?=($arParams["TAB_STOCK_NAME"] ? $arParams["TAB_STOCK_NAME"] : GetMessage("STORES_TAB"));?></div>
-                    <div class="stores_wrapp">
-                    <?if($arResult["OFFERS"]){?>
-                        <span></span>
-                    <?}else{?>
-                        <?$APPLICATION->IncludeComponent("bitrix:catalog.store.amount", "main", array(
-                                "PER_PAGE" => "10",
-                                "USE_STORE_PHONE" => $arParams["USE_STORE_PHONE"],
-                                "SCHEDULE" => $arParams["SCHEDULE"],
-                                "USE_MIN_AMOUNT" => $arParams["USE_MIN_AMOUNT"],
-                                "MIN_AMOUNT" => $arParams["MIN_AMOUNT"],
-                                "ELEMENT_ID" => $arResult["ID"],
-                                "STORE_PATH"  =>  $arParams["STORE_PATH"],
-                                "MAIN_TITLE"  =>  $arParams["MAIN_TITLE"],
-                                "MAX_AMOUNT"=>$arParams["MAX_AMOUNT"],
-                                "USE_ONLY_MAX_AMOUNT" => $arParams["USE_ONLY_MAX_AMOUNT"],
-                                "SHOW_EMPTY_STORE" => $arParams['SHOW_EMPTY_STORE'],
-                                "SHOW_GENERAL_STORE_INFORMATION" => $arParams['SHOW_GENERAL_STORE_INFORMATION'],
-                                "USE_ONLY_MAX_AMOUNT" => $arParams["USE_ONLY_MAX_AMOUNT"],
-                                "USER_FIELDS" => $arParams['USER_FIELDS'],
-                                "FIELDS" => $arParams['FIELDS'],
-                                "STORES" => $arParams['STORES'],
-                            ),
-                            $component
-                        );?>
-                    <?}?>
-                    </div>
-                </div>
-            <?endif;*/?>
-
-            <?/*if($arParams["SHOW_ADDITIONAL_TAB"] == "Y"):?>
-                <div class="tab-pane additional_block<?=(!($iTab++) ? ' active' : '')?>" id="dops">
-                    <div class="title-tab-heading visible-xs"><?=($arParams["TAB_DOPS_NAME"] ? $arParams["TAB_DOPS_NAME"] : GetMessage("ADDITIONAL_TAB"));?></div>
-                    <div>
-                    <?$APPLICATION->IncludeFile(SITE_DIR."include/additional_products_description.php", array(), array("MODE" => "html", "NAME" => GetMessage('CT_BCE_CATALOG_ADDITIONAL_DESCRIPTION')));?>
-                    </div>
-                </div>
-            <?endif;*/?>
-            <?/*if($arParams["USE_REVIEW"] == "Y"):?>
-                <div class="tab-pane media_review<?=(!($iTab++) ? ' active' : '')?> product_reviews_tab visible-xs">
-                    <div class="title-tab-heading visible-xs"><?=($arParams["TAB_REVIEW_NAME"] ? $arParams["TAB_REVIEW_NAME"] : GetMessage("REVIEW_TAB"))?><span class="count empty"></span></div>
-                </div>
-            <?endif;*/?>
         </div>
     </div>
 </div>
