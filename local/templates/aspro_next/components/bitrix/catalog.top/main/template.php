@@ -111,13 +111,9 @@ $arNotify = unserialize($notifyOption);
                         <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
                             <div class="show_block_props_element">
                             <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
-                            <?$arProp["VALUE"] = str_replace("*", "", $arProp["VALUE"]);
-                            if(strripos($arProp["VALUE"], "(")){
-                                $explodeStr = explode('(',$arProp["VALUE"]);?>
-                                <span class="element_value"><?=trim($explodeStr[0], " ")?></span>
-                            <?} else {?>
-                                <span class="element_value"><?=$arProp["VALUE"]?></span> 
-                             <?}?>                                            
+                            <?                         
+                            $arProp["VALUE"] = \Webgk\Main\Tools::explodeProperty($arProp["VALUE"]);?>                                                 
+                            <span class="element_value"><?=$arProp["VALUE"]?></span>                                                                       
                             </div>
                         <?}?>                                      
                     <?}?>
