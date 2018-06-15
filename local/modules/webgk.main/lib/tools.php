@@ -194,8 +194,13 @@ Class Tools {
     * 
     * @param array $arFields
     */
-    function gettingNewClientInfo($arFields) {
-        $userInfo = \CUser::GetByID($arFields["ID"]);
+    public static function gettingNewClientInfo(&$arFields) {
+        if ($arFields["ID"]) {
+            $userID = $arFields["ID"];
+        } else {
+            $userID = $arFields["USER_ID"];
+        }
+        $userInfo = \CUser::GetByID($userID);
         while ($user = $userInfo -> Fetch()) {
             if ($user["PERSONAL_PHONE"]) {
                 ClientBonusInfo::ClientsInfo($user["PERSONAL_PHONE"]);
@@ -203,8 +208,7 @@ Class Tools {
         }
     }
     
-    
-    /*
+        /*
     *Форматирование свойства "Действующее вещество" от '*', '(' 
     */
     public static function explodeProperty($valueToExplode){
