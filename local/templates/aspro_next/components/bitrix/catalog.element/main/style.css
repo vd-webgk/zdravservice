@@ -1,20 +1,4 @@
-.like_wrapper{
-    top: -60px !important;
-    float: left;
-    /*margin-left: 60px;*/
-}
-.like_icons {
-    display: flex;
-    left: 0;
-    right: -120px !important;
-}
-.icons_in_catalog_element{
-    position: absolute;
-    top: 1px;
-    left: 0px;
-    display: flex;
-    z-index: 53;
-}
+
 .element_prescription {
     text-align: center;
     font-size: 20px;
