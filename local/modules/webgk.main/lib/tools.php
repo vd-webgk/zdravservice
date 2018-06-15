@@ -176,30 +176,17 @@ Class Tools {
         $userPhone = "";
         if (isset($arFields["PERSONAL_PHONE"])) {
             $userPhone = $arFields["PERSONAL_PHONE"];
-        } else {
-            $userInfo = CUser::GetByID($arFields["ID"]);
-            while ($userParams = $userInfo -> Fetch()) {
-                if (!empty($userParams["PERSONAL_PHONE"])) {
-                    $userPhone = $arFields["PERSONAL_PHONE"];
+            if (strlen($userPhone) > 0) {
+                $userPhone = preg_replace("/\D/", "", $userPhone);
+                if (strlen($userPhone) == 11) {
+                    if (substr($userPhone, 0, 1) == "8") {
+                        $userPhone = substr_replace($userPhone, "7", 0, 1);
+                    }
+                    $userPhone = "+".$userPhone;    
                 }
             }
-                
-        }
-        if (strlen($userPhone) > 0) {
-            $userPhone = preg_replace("/\D/", "", $userPhone);
-            if (strlen($userPhone) == 11) {
-                if (substr($userPhone, 0, 1) == "8") {
-                    $userPhone = substr_replace($userPhone, "7", 0, 1);
-                }
-                $userPhone = "+".$userPhone;    
-            }
-        }
-        if (isset($arFields["PERSONAL_PHONE"])) {
             $arFields["PERSONAL_PHONE"] = $userPhone;
-        } else {
-            $userObj = new CUser;
-            $userObj->Update($arFields["ID"], array("PERSONAL_PHONE" => $userPhone));
-        }                                           
+        }                                         
     }
     
     /**
@@ -213,6 +200,22 @@ Class Tools {
             if ($user["PERSONAL_PHONE"]) {
                 ClientBonusInfo::ClientsInfo($user["PERSONAL_PHONE"]);
             }
+        }
+    }
+    
+    
+    /*
+    *Форматирование свойства "Действующее вещество" от '*', '(' 
+    */
+    public static function explodeProperty($valueToExplode){
+        if(!empty($valueToExplode)){
+            $explodeThis = $valueToExplode;
+            $explodeThis = str_replace("*", "", $explodeThis);
+                if(strripos($explodeThis, "(")){
+                    $explodeThis = explode('(', $explodeThis);
+                    $explodeThis = trim($explodeThis[0], " ");
+                }
+            return $explodeThis; 
         }
     }
 
