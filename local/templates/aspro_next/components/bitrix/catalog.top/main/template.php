@@ -100,6 +100,25 @@ $arNotify = unserialize($notifyOption);
 						);?>
 					</div>
 				<?endif;?>
+                <?if(!empty($arItem["DISPLAY_PROPERTIES"]['STRANA_PROIZVODITELYA']['VALUE']) || !empty($arItem["DISPLAY_PROPERTIES"]['DEYSTVUYUSHCHEE_VESHCHESTVO']['VALUE'])){?>
+                    <div class="show_block_props">
+                    <?foreach( $arItem["DISPLAY_PROPERTIES"] as $arProp ){?>
+                        <?if($arProp['CODE'] == 'STRANA_PROIZVODITELYA'){?>
+                            <div class="show_block_props_element">
+                            <span class="element_name"><?=GetMessage('BRAND_NAME_PROP')?></span>
+                            <span class="element_value"><?=$arProp["VALUE"]?></span>
+                            </div>
+                        <?} elseif($arProp['CODE'] == 'DEYSTVUYUSHCHEE_VESHCHESTVO') {?>
+                            <div class="show_block_props_element">
+                            <span class="element_name"><?=GetMessage('BRAND_SUBSTANCE_PROP')?></span>
+                            <?                         
+                            $arProp["VALUE"] = \Webgk\Main\Tools::explodeProperty($arProp["VALUE"]);?>                                                 
+                            <span class="element_value"><?=$arProp["VALUE"]?></span>                                                                       
+                            </div>
+                        <?}?>                                      
+                    <?}?>
+                    </div>
+                <?}?>
 				<div class="sa_block">
 					<?=$arQuantityData["HTML"];?>
 				</div>

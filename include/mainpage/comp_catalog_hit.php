@@ -51,7 +51,6 @@
 		"SET_TITLE" => "N",
 		"SET_STATUS_404" => "N",
 		"PRICE_CODE" => array(
-			0 => "BASE",
 		),
 		"USE_PRICE_COUNT" => "Y",
 		"SHOW_PRICE_COUNT" => "1",
@@ -87,8 +86,7 @@
 		"OFFERS_SORT_FIELD2" => "id",
 		"OFFERS_SORT_ORDER2" => "desc",
 		"SHOW_MEASURE" => "Y",
-		"OFFERS_CART_PROPERTIES" => array(
-		),
+		"OFFERS_CART_PROPERTIES" => "",
 		"DISPLAY_WISH_BUTTONS" => "Y",
 		"SHOW_DISCOUNT_PERCENT" => "N",
 		"SHOW_OLD_PRICE" => "Y",
@@ -96,8 +94,9 @@
 		"SALE_STIKER" => "SALE_TEXT",
 		"SHOW_DISCOUNT_TIME" => "N",
 		"STORES" => array(
-			0 => "2",
-			1 => "",
+			0 => "",
+			1 => "2",
+			2 => "",
 		),
 		"STIKERS_PROP" => "HIT",
 		"SHOW_MEASURE_WITH_RATIO" => "N"

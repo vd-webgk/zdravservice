@@ -63,6 +63,8 @@ $MESS["FEW_GOODS"] = "Мало";
 $MESS["MANY_GOODS"] = "Много";
 $MESS["CHEAPER"] = "Нашли дешевле?";
 $MESS["DESCRIPTION_TAB"] = "Описание";
+$MESS["INSTRUCTIONS_FOR_USE"] = "Инструкция по применению";
+$MESS["CONTRAINDICATIONS"] = "Противопоказания";
 $MESS["VIDEO_TAB"] = "Видео";
 $MESS["ASK_TAB"] = "Задать вопрос";
 $MESS["ADDITIONAL_TAB"] = "Дополнительно";
@@ -94,4 +96,5 @@ $MESS["PRICE_MATRIX_COUNT_TO"] = "до";
 
 $MESS['S_ASK_QUESTION'] = 'Задать вопрос';
 $MESS['S_ORDER_SERVISE'] = 'Заказать услугу';
+$MESS['PROPERTY_RECIPE'] = 'Отпускается только по рецепту';
 ?>
