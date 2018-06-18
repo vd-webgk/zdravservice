@@ -10,6 +10,11 @@ use Webgk\Main\Hlblock\Prototype;
 use Webgk\Main\CSV\CSVToArray;
 
 class itemsInfo {
+    /**
+    * вызов функции преобразования данных о доставке из CSV в массив для каждого товара
+    * 
+    * @param mixed $csvFileUrl
+    */
     function ItemsDeliveryCSVParse($csvFileUrl) {
         $csvFileArr = CSVToArray::CSVParse($csvFileUrl, array("item_name", "delivery_date"));
         foreach ($csvFileArr as $importedItemInfo) {
@@ -17,6 +22,11 @@ class itemsInfo {
         }
     }
     
+    /**
+    * преобразование данных о доставке из CSV в массив
+    * 
+    * @param mixed $importedItemInfo
+    */
     function updatingElementsForHLDeliveryDateBlock($importedItemInfo) {
         if (!empty($importedItemInfo["item_name"])) {
             $hlblock = Prototype::getInstance("GoodsDeliveryDates");
