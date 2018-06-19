@@ -3952,7 +3952,7 @@ window.JCCatalogElement.prototype.allowViewedCount = function(update)
 /*
 * Вешаем на нужные теги атрибут name для якорей, на которые при клике по тамбам будет происходить переход
 */
-$(document).on('ready', function(){
+/*$(document).on('ready', function(){
     $('div .detail_text').find('h3:contains("Способ применения и дозы")').attr('name','instructions');                              
     $('div .detail_text').find('h3:contains("Противопоказания")').attr('name','contraindications');
     setTimeout(scrollyTab , 1000);
@@ -3966,7 +3966,7 @@ $(document).on('ready', function(){
 /*
 *Переход на якорь при клике на соответствующий таб 
 */
-function scrollyTab(){
+/*function scrollyTab(){
  $('a.instructions').on('click', function(e){           
             e.preventDefault();
             $('.tab-content .tab-pane#descr').addClass('active');
@@ -3985,4 +3985,4 @@ function scrollyTab(){
                 scrollTop: position - 120
             }, 900 );
      });
-} 
+} */
